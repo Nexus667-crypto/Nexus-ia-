@@ -1147,7 +1147,7 @@ async function sendMsg(){
   if(userProfile)await useCredit();
 
   OR_KEY = localStorage.getItem('nx_api_key') || OR_KEY;
-  if(!OR_KEY){toast('❌ Clé API manquante — configure-la dans le Master Dashboard');return;}
+  if(!OR_KEY){document.getElementById('apiKeyBanner').style.display='block';toast('❌ Entre ta clé API dans le champ en haut');return;}
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
@@ -1176,10 +1176,8 @@ function checkAndShowKeyBanner(){
   OR_KEY = key;
   var banner = document.getElementById('apiKeyBanner');
   if(!banner) return;
-  // Montrer la bannière seulement si pas de clé
   if(!key){
     banner.style.display='block';
-    document.getElementById('inlinApiKey').value='';
   } else {
     banner.style.display='none';
   }
