@@ -670,8 +670,9 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
 // ║  🔧 CONFIGURATION — À modifier              ║
 // ╚══════════════════════════════════════════════╝
 var SUPABASE_URL = "https://ddebrzazzbsihtrrzuel.supabase.co";
-var SUPABASE_KEY = "sb_publishable_B5IyGY0fiLx6AGTvgP1tVg_MrDkpCyE";
-var OR_KEY = "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".trim();
+var SUPABASE_KEY = "sb_publishable_B5IyGY0fiLx6AGTvgP1tVg_MrDkpCyE
+  ";
+var OR_KEY = "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";
 var CREATOR_EMAIL = "louistou07@gmail.com";
 
 // ── RÔLES ──────────────────────────────────────
@@ -738,7 +739,8 @@ function updateUI(){
   if(!currentUser||!userProfile)return;
   var r=userProfile.role||'normal';
   var ri=ROLES[r]||ROLES.normal;
-  var pseudo=userProfile.pseudo||currentUser.email.split('@')[0];
+  var pseudo=userProfile.pseudo||localStorage.getItem('nx_pseudo')||currentUser.email.split('@')[0];
+  if(!userProfile.pseudo && localStorage.getItem('nx_pseudo')) userProfile.pseudo=localStorage.getItem('nx_pseudo');
   document.getElementById('navUserName').textContent=pseudo;
   var b=document.getElementById('navRoleBadge');b.textContent=ri.label;b.className='role-badge '+ri.cls;
   document.getElementById('masterNavLink').style.display=r==='creator'?'inline':'none';
@@ -835,8 +837,10 @@ async function savePseudo(){
   var pseudo=document.getElementById('settingsPseudo').value.trim();
   if(!pseudo){toast('Entrez un pseudo.');return;}
   userProfile.pseudo=pseudo;
+  localStorage.setItem('nx_pseudo',pseudo);
   await upsertProfile();
-  updateUI();
+  document.getElementById('navUserName').textContent=pseudo;
+  document.getElementById('settingsPseudo').value=pseudo;
   toast('Pseudo sauvegardé ✓','success');
 }
 
@@ -871,23 +875,71 @@ function loadTheme(){
   });
 }
 
+var LANG_FR = {
+  chatPlaceholder: 'Écrivez votre message...',
+  newChat: 'Nouvelle conversation',
+  histTitle: 'Historique',
+  emptyTitle: 'Nexus IA est prêt',
+  emptySub: 'Choisissez un modèle et commencez à écrire',
+  sendHint: 'Entrée pour envoyer · Maj+Entrée nouvelle ligne',
+  credits: 'Crédits aujourd'hui',
+  modelLabel: 'Modèle IA',
+  settingsTitle: 'Paramètres',
+  savePseudo: 'Sauvegarder le pseudo',
+  changePass: 'Changer le mot de passe',
+  logout: 'Déconnexion',
+  premium: '⭐ Passer Premium'
+};
+var LANG_EN = {
+  chatPlaceholder: 'Write your message...',
+  newChat: 'New conversation',
+  histTitle: 'History',
+  emptyTitle: 'Nexus AI is ready',
+  emptySub: 'Choose a model and start writing',
+  sendHint: 'Enter to send · Shift+Enter new line',
+  credits: 'Credits today',
+  modelLabel: 'AI Model',
+  settingsTitle: 'Settings',
+  savePseudo: 'Save username',
+  changePass: 'Change password',
+  logout: 'Logout',
+  premium: '⭐ Go Premium'
+};
+
 function setLang(lang){
   localStorage.setItem('nx_lang',lang);
-  // Mettre à jour le placeholder du chat
-  var inp = document.getElementById('chatInput');
-  if(inp) inp.placeholder = lang==='en'?'Write your message...':'Écrivez votre message...';
-  // Mettre à jour le select
+  applyLang(lang);
+  toast(lang==='en'?'Language set to English ✓':'Langue définie en Français ✓','success');
+}
+
+function applyLang(lang){
+  var L = lang==='en' ? LANG_EN : LANG_FR;
   var sel = document.getElementById('langSelect');
   if(sel) sel.value = lang;
-  toast(lang==='en'?'Language set to English ✓':'Langue définie en Français ✓','success');
+  var inp = document.getElementById('chatInput');
+  if(inp) inp.placeholder = L.chatPlaceholder;
+  // Boutons navbar
+  var logout = document.querySelector('#navUserArea .btn-outline:last-child');
+  if(logout) logout.textContent = L.logout;
+  // Sidebar
+  var newChatBtn = document.querySelector('.new-chat-btn');
+  if(newChatBtn) newChatBtn.childNodes[newChatBtn.childNodes.length-1].textContent = ' '+L.newChat;
+  var sideLbl = document.querySelector('.side-lbl');
+  if(sideLbl) sideLbl.textContent = L.histTitle;
+  // Credits label
+  var credLbl = document.querySelector('.credits-bar-label');
+  if(credLbl) credLbl.textContent = L.credits;
+  // Hint
+  var hint = document.querySelector('.inp-hint span:first-child');
+  if(hint) hint.textContent = L.sendHint;
+  // Settings title
+  var stitle = document.querySelector('.settings-title');
+  if(stitle) stitle.textContent = (lang==='en'?'⚙️ Settings':'⚙️ Paramètres');
 }
 
 function loadLang(){
   var lang = localStorage.getItem('nx_lang')||'fr';
-  var sel = document.getElementById('langSelect');
-  if(sel) sel.value = lang;
-  var inp = document.getElementById('chatInput');
-  if(inp) inp.placeholder = lang==='en'?'Write your message...':'Écrivez votre message...';
+  applyLang(lang);
 }
 
 async function deleteAccount(){
