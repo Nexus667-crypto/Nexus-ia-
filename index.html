@@ -14,16 +14,20 @@
   --white:#f0f0ff;--muted:#8080b0;
   --border:rgba(139,92,246,0.25);--card:rgba(11,5,40,0.78);
   --glow:rgba(107,44,245,0.4);
+  --bg1:#03010a;--bg2:#080420;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overflow-x:hidden;min-height:100vh}
+body{font-family:'Exo 2',sans-serif;background:var(--bg1);color:var(--white);overflow-x:hidden;min-height:100vh}
+body.theme-blue{--violet:#0ea5e9;--violet-mid:#0284c7;--violet-bright:#38bdf8;--glow:rgba(14,165,233,0.4);--bg1:#00080f;--bg2:#001220}
+body.theme-green{--violet:#059669;--violet-mid:#047857;--violet-bright:#34d399;--glow:rgba(5,150,105,0.4);--bg1:#00090a;--bg2:#001a0f}
+body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--glow:rgba(219,39,119,0.4);--bg1:#0a0008;--bg2:#1a0010}
 #spaceCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .page{display:none;position:relative;z-index:1;min-height:100vh}
 
-/* ── NAVBAR ── */
+/* NAVBAR */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:70px;background:rgba(3,1,10,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;background:linear-gradient(90deg,var(--violet-bright),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:3px;cursor:pointer}
-.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;cursor:pointer;transition:color .2s}
 .nav-links a:hover{color:var(--white)}
 .nav-right{display:flex;align-items:center;gap:10px}
@@ -31,9 +35,10 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .btn-outline{background:transparent;border:1px solid var(--border);color:var(--white)}
 .btn-outline:hover{border-color:var(--violet-bright);color:var(--violet-bright)}
 .btn-primary{background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:1px solid rgba(139,92,246,.5);color:#fff;box-shadow:0 0 16px var(--glow)}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 28px var(--glow)}
+.btn-primary:hover{transform:translateY(-1px)}
 #navUserArea{display:none;align-items:center;gap:10px}
-#navUserName{font-size:13px;color:var(--violet-bright);font-weight:600}
+#navUserName{font-size:13px;color:var(--violet-bright);font-weight:600;cursor:pointer}
+#navUserName:hover{text-decoration:underline}
 .role-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .role-normal{background:rgba(139,92,246,.15);color:var(--violet-bright);border:1px solid rgba(139,92,246,.3)}
 .role-tester{background:rgba(6,182,212,.15);color:var(--cyan);border:1px solid rgba(6,182,212,.3)}
@@ -42,7 +47,7 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .credits-display{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
 .credits-display span{color:var(--white);font-weight:700}
 
-/* ── AUTH ── */
+/* AUTH */
 .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
 .auth-card{width:100%;max-width:440px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 40px;backdrop-filter:blur(30px);box-shadow:0 0 60px rgba(107,44,245,.15);animation:cardIn .4s ease}
 @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -58,11 +63,10 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .btn-full:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
 .auth-switch{text-align:center;margin-top:24px;font-size:13px;color:var(--muted)}
 .auth-switch a{color:var(--violet-bright);cursor:pointer;font-weight:600}
-.auth-switch a:hover{text-decoration:underline}
 .auth-err{background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);border-radius:8px;padding:12px 14px;font-size:13px;color:#f9a8d4;margin-bottom:16px;display:none;line-height:1.6}
-.auth-ok{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);border-radius:8px;padding:12px 14px;font-size:13px;color:#67e8f9;margin-bottom:16px;display:none;line-height:1.6}
+.auth-ok{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);border-radius:8px;padding:12px 14px;font-size:13px;color:#67e8f9;margin-bottom:16px;display:none}
 
-/* ── VERIFY ── */
+/* VERIFY */
 .verif-card{text-align:center;padding:48px 36px}
 .verif-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;box-shadow:0 0 40px var(--glow);animation:iconPulse 2s infinite}
 @keyframes iconPulse{0%,100%{box-shadow:0 0 40px var(--glow)}50%{box-shadow:0 0 80px var(--glow)}}
@@ -72,18 +76,20 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-top:10px;display:inline-block}
 .btn-ghost:hover{border-color:var(--violet-bright);color:var(--white)}
 
-/* ── HOME ── */
+/* HOME */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{to{background-position:200% center}}
+@keyframes orbP{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 40px}
 .hero-content{max-width:800px;position:relative;z-index:2}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:30px;padding:6px 16px;font-size:12px;color:var(--violet-bright);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;animation:fadeUp .6s ease both}
 .hero-badge::before{content:'';width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.1;margin-bottom:24px;animation:fadeUp .6s .1s ease both}
 .hero-title span{background:linear-gradient(135deg,var(--violet-bright),var(--cyan),var(--pink));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
-@keyframes shimmer{to{background-position:200% center}}
 .hero-sub{font-size:18px;color:var(--muted);line-height:1.7;max-width:560px;margin:0 auto 40px;animation:fadeUp .6s .2s ease both}
 .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .btn-hp{padding:16px 36px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:1px solid rgba(139,92,246,.5);border-radius:10px;color:#fff;font-family:'Exo 2',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 30px var(--glow)}
 .btn-hp:hover{transform:translateY(-3px);box-shadow:0 8px 40px var(--glow)}
 .btn-hs{padding:16px 36px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s}
@@ -95,94 +101,95 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .about-visual{position:relative;display:flex;align-items:center;justify-content:center;height:340px}
 .about-orb{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--violet-mid) 0%,var(--violet) 40%,transparent 70%);box-shadow:0 0 80px var(--glow);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#fff;letter-spacing:3px;animation:orbP 4s ease-in-out infinite}
-@keyframes orbP{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 .orbit-ring{position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:spin linear infinite}
 .ring-1{width:280px;height:280px;animation-duration:12s}
 .ring-2{width:340px;height:340px;border-style:dashed;animation-duration:20s;animation-direction:reverse}
 .orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px rgba(6,182,212,.5);top:0;left:50%;transform:translateX(-50%) translateY(-4px)}
-@keyframes spin{to{transform:rotate(360deg)}}
 .about-features{display:flex;flex-direction:column;gap:20px}
-.about-feat{display:flex;gap:16px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;backdrop-filter:blur(10px);transition:all .2s}
+.about-feat{display:flex;gap:16px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .2s}
 .about-feat:hover{border-color:rgba(139,92,246,.5);transform:translateX(4px)}
 .feat-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .feat-text h4{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
 .feat-text p{font-size:13px;color:var(--muted);line-height:1.5}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.svc-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px 28px;backdrop-filter:blur(20px);text-align:center;transition:all .3s}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px 28px;text-align:center;transition:all .3s}
 .svc-card:hover{border-color:rgba(139,92,246,.5);transform:translateY(-6px);box-shadow:0 12px 40px rgba(107,44,245,.2)}
-.svc-icon{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--violet),var(--blue));display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;box-shadow:0 6px 24px var(--glow)}
+.svc-icon{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--violet),var(--blue));display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px}
 .svc-title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;margin-bottom:12px}
 .svc-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px}
 .btn-svc{padding:10px 24px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:none;color:#fff;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-svc:hover{transform:scale(1.03);box-shadow:0 4px 16px var(--glow)}
+.btn-svc:hover{transform:scale(1.03)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
 .contact-info{display:flex;flex-direction:column;gap:20px}
 .contact-item{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px}
 .contact-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .contact-detail h5{font-size:13px;font-weight:700;margin-bottom:2px}
 .contact-detail p{font-size:13px;color:var(--muted)}
-.contact-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;backdrop-filter:blur(20px)}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px}
 .contact-form-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;margin-bottom:24px}
 .footer{background:rgba(3,1,10,.9);border-top:1px solid var(--border);padding:40px;position:relative;z-index:1}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto}
 .footer-logo{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;background:linear-gradient(90deg,var(--violet-bright),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:3px;margin-bottom:6px}
 .footer-text{color:var(--muted);font-size:13px}
 .footer-socials{display:flex;gap:12px}
-.soc-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:15px}
+.soc-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
 .soc-btn:hover{border-color:var(--violet-bright);color:var(--violet-bright)}
 
-/* ── PRICING PAGE ── */
+/* PRICING */
 #pricingPage{padding-top:70px}
 .pricing-hero{text-align:center;padding:80px 40px 40px}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto;padding:0 40px 80px}
 .pricing-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;transition:all .3s;position:relative}
 .pricing-card.popular{border-color:var(--gold);box-shadow:0 0 40px rgba(245,158,11,.15)}
-.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#d97706);color:#000;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
-.pricing-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(107,44,245,.2)}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#d97706);color:#000;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;white-space:nowrap}
+.pricing-card:hover{transform:translateY(-4px)}
 .plan-icon{font-size:36px;margin-bottom:16px}
 .plan-name{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px}
-.plan-price{font-size:40px;font-weight:900;color:var(--white);margin:16px 0 4px}
+.plan-price{font-size:40px;font-weight:900;margin:16px 0 4px}
 .plan-price span{font-size:16px;color:var(--muted);font-weight:400}
 .plan-alt{font-size:12px;color:var(--muted);margin-bottom:24px}
 .plan-features{list-style:none;text-align:left;margin-bottom:28px;display:flex;flex-direction:column;gap:10px}
 .plan-features li{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
 .plan-features li::before{content:'✓';color:var(--cyan);font-weight:700;flex-shrink:0}
 .btn-plan{width:100%;padding:12px;border-radius:10px;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;border:none}
-.btn-plan-gold{background:linear-gradient(135deg,var(--gold),#d97706);color:#000;box-shadow:0 4px 20px rgba(245,158,11,.3)}
-.btn-plan-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,158,11,.4)}
+.btn-plan-gold{background:linear-gradient(135deg,var(--gold),#d97706);color:#000}
+.btn-plan-gold:hover{transform:translateY(-2px)}
 .btn-plan-outline{background:transparent;border:1px solid var(--border)!important;color:var(--white)}
 .btn-plan-outline:hover{border-color:var(--violet-bright)!important;color:var(--violet-bright)}
 
-/* ── CHAT PAGE ── */
+/* CHAT */
 #chatPage{padding-top:70px;height:100vh;flex-direction:column}
 .chat-container{flex:1;display:flex;overflow:hidden;height:calc(100vh - 70px)}
-.chat-side{width:260px;min-width:260px;background:rgba(3,1,10,.92);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 16px;gap:8px;flex-shrink:0;transition:transform .3s}
+.chat-side{width:260px;min-width:260px;background:rgba(3,1,10,.95);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform .3s;overflow:hidden}
+.chat-side-top{padding:16px;display:flex;flex-direction:column;gap:8px}
 .chat-main{flex:1;display:flex;flex-direction:column;min-width:0;width:100%}
-.sidebar-toggle{display:none;position:fixed;top:78px;left:12px;z-index:200;width:36px;height:36px;border-radius:8px;background:rgba(107,44,245,.3);border:1px solid var(--border);color:var(--white);cursor:pointer;align-items:center;justify-content:center;font-size:18px;backdrop-filter:blur(10px)}
+.sidebar-toggle{display:none;position:fixed;top:78px;left:12px;z-index:200;width:36px;height:36px;border-radius:8px;background:rgba(107,44,245,.3);border:1px solid var(--border);color:var(--white);cursor:pointer;align-items:center;justify-content:center;font-size:18px}
 .sidebar-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
-.new-chat-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:none;border-radius:10px;color:#fff;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;cursor:pointer;width:100%;margin-bottom:8px;transition:all .2s}
+.new-chat-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:none;border-radius:10px;color:#fff;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;cursor:pointer;width:100%;transition:all .2s}
 .new-chat-btn:hover{box-shadow:0 4px 20px var(--glow)}
-.side-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:4px}
-.hist-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
-.hist-item{padding:9px 12px;border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .15s}
+.side-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:8px 4px 4px}
+.hist-list{flex:1;overflow-y:auto;padding:0 8px 8px}
+.hist-list::-webkit-scrollbar{width:3px}
+.hist-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.hist-item{padding:9px 10px;border-radius:8px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .15s;display:flex;align-items:center;gap:6px}
 .hist-item:hover{background:rgba(139,92,246,.1);color:var(--white)}
-.side-sec{padding-top:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px}
-.side-sec-lbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
-.model-sel{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:12px;outline:none;width:100%;cursor:pointer}
-.key-inp{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:11px;outline:none;width:100%;transition:border-color .2s}
-.key-inp:focus{border-color:var(--violet-bright)}
-.key-inp::placeholder{color:rgba(128,128,176,.4)}
-.key-st{font-size:11px;color:var(--muted)}.key-st.ok{color:#4ade80}.key-st.err{color:#f87171}
+.hist-item.active{background:rgba(139,92,246,.15);color:var(--white)}
+.hist-item-del{margin-left:auto;opacity:0;font-size:11px;color:var(--muted);flex-shrink:0;padding:2px 4px;border-radius:4px}
+.hist-item:hover .hist-item-del{opacity:1}
+.hist-item-del:hover{color:#f87171;background:rgba(248,113,113,.1)}
+.side-bottom{padding:12px 16px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px}
+.side-sec-lbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.model-sel{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:12px;outline:none;width:100%;cursor:pointer;margin-bottom:6px}
 .credits-bar{background:rgba(139,92,246,.08);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12px}
-.credits-bar-label{color:var(--muted);margin-bottom:6px}
-.credits-bar-track{background:rgba(255,255,255,.06);border-radius:4px;height:6px;overflow:hidden}
+.credits-bar-label{color:var(--muted);margin-bottom:6px;font-size:11px}
+.credits-bar-track{background:rgba(255,255,255,.06);border-radius:4px;height:5px;overflow:hidden}
 .credits-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--violet-bright),var(--cyan));transition:width .4s}
-.credits-bar-count{color:var(--white);font-weight:700;margin-top:4px;font-size:13px}
-.chat-header{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(3,1,10,.7);backdrop-filter:blur(20px)}
-.chat-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px}
-.model-badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--muted)}
+.credits-bar-count{color:var(--white);font-weight:700;margin-top:4px;font-size:12px}
+.chat-header{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(3,1,10,.7);backdrop-filter:blur(20px);flex-shrink:0}
+.chat-title{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px}
+.model-badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--muted);flex-shrink:0}
 .badge-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:blink 2s infinite}
-.msg-area{flex:1;overflow-y:auto;padding:32px 28px;display:flex;flex-direction:column;gap:20px}
+.msg-area{flex:1;overflow-y:auto;padding:28px 24px;display:flex;flex-direction:column;gap:16px}
 .msg-area::-webkit-scrollbar{width:4px}
 .msg-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .chat-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px}
@@ -190,46 +197,83 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .empty-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700}
 .empty-sub{font-size:13px;color:var(--muted)}
 .suggs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
-.sugg{background:rgba(139,92,246,.08);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Exo 2',sans-serif}
+.sugg{background:rgba(139,92,246,.08);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s}
 .sugg:hover{border-color:var(--violet-bright);color:var(--white);background:rgba(139,92,246,.15)}
-.message{display:flex;gap:12px;animation:msgIn .3s ease;max-width:800px}
+.message{display:flex;gap:10px;animation:msgIn .3s ease;max-width:820px}
 .message.user{align-self:flex-end;flex-direction:row-reverse}
 .message.ai{align-self:flex-start}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.msg-av{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;margin-top:2px;font-family:'Orbitron',sans-serif}
+.msg-av{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;margin-top:2px;font-family:'Orbitron',sans-serif}
 .msg-av.ai{background:linear-gradient(135deg,var(--violet),var(--cyan));box-shadow:0 2px 12px var(--glow)}
 .msg-av.user{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--violet-bright)}
-.msg-bub{padding:12px 16px;border-radius:14px;font-size:14px;line-height:1.7;max-width:calc(100% - 44px)}
-.message.ai .msg-bub{background:rgba(11,5,40,.88);border:1px solid var(--border);border-top-left-radius:4px}
+.msg-bub{padding:11px 15px;border-radius:14px;font-size:14px;line-height:1.7;max-width:calc(100% - 40px)}
+.message.ai .msg-bub{background:rgba(11,5,40,.9);border:1px solid var(--border);border-top-left-radius:4px}
 .message.user .msg-bub{background:rgba(107,44,245,.2);border:1px solid rgba(139,92,246,.3);border-top-right-radius:4px}
 .msg-bub p{margin-bottom:8px}.msg-bub p:last-child{margin-bottom:0}
+.msg-bub strong{color:var(--violet-bright)}
 .msg-bub code{font-family:'Courier New',monospace;background:rgba(139,92,246,.15);padding:2px 6px;border-radius:4px;font-size:13px;color:#c4b5fd}
 .msg-bub pre{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:8px;padding:12px;overflow-x:auto;margin:8px 0}
 .msg-bub pre code{background:none;padding:0}
+.msg-img{max-width:280px;max-height:200px;border-radius:10px;border:1px solid var(--border);margin-bottom:8px;display:block}
 .typing{display:flex;gap:4px;align-items:center;padding:4px 0}
 .typing span{width:5px;height:5px;background:var(--violet-bright);border-radius:50%;animation:typB 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
 @keyframes typB{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
-.inp-area{padding:14px 28px 20px;background:rgba(3,1,10,.9);border-top:1px solid var(--border)}
-.inp-wrap{display:flex;gap:10px;align-items:flex-end;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:10px 14px;transition:border-color .2s,box-shadow .2s}
+
+/* IMAGE PREVIEW */
+.img-preview-bar{padding:8px 24px 0;display:none;align-items:center;gap:8px;flex-wrap:wrap}
+.img-preview-bar.has-img{display:flex}
+.img-thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;border:2px solid var(--violet-bright)}
+.img-remove{width:20px;height:20px;border-radius:50%;background:rgba(248,113,113,.2);border:1px solid rgba(248,113,113,.4);color:#f87171;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:-14px;margin-top:-14px;align-self:flex-start}
+
+/* INPUT */
+.inp-area{padding:10px 24px 16px;background:rgba(3,1,10,.92);border-top:1px solid var(--border);flex-shrink:0}
+.inp-wrap{display:flex;gap:8px;align-items:flex-end;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:10px 12px;transition:border-color .2s,box-shadow .2s}
 .inp-wrap:focus-within{border-color:var(--violet-bright);box-shadow:0 0 0 3px rgba(139,92,246,.1)}
-#chatInput{flex:1;background:transparent;border:none;outline:none;color:var(--white);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;resize:none;max-height:140px;overflow-y:auto;padding:3px 0}
+.inp-icon-btn{width:32px;height:32px;background:transparent;border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .2s;flex-shrink:0}
+.inp-icon-btn:hover{color:var(--white);background:rgba(139,92,246,.15)}
+#chatInput{flex:1;background:transparent;border:none;outline:none;color:var(--white);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;resize:none;max-height:140px;overflow-y:auto;padding:2px 0}
 #chatInput::placeholder{color:rgba(128,128,176,.4)}
-.send-btn{width:36px;height:36px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:none;border-radius:8px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.send-btn{width:34px;height:34px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));border:none;border-radius:8px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
 .send-btn:hover:not(:disabled){transform:scale(1.05);box-shadow:0 4px 16px var(--glow)}
 .send-btn:disabled{opacity:.4;cursor:not-allowed}
 .inp-hint{font-size:11px;color:rgba(128,128,176,.4);margin-top:6px;padding:0 2px;display:flex;justify-content:space-between}
 
-/* ── CREDITS LIMIT MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+/* CREDITS MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;animation:cardIn .3s ease;box-shadow:0 0 60px rgba(107,44,245,.2)}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;animation:cardIn .3s ease}
 .modal-icon{font-size:48px;margin-bottom:16px}
 .modal-title{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px}
 .modal-text{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:24px}
 .modal-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* ── MASTER DASHBOARD ── */
+/* SETTINGS PAGE */
+#settingsPage{padding-top:70px;min-height:100vh}
+.settings-container{max-width:720px;margin:0 auto;padding:40px}
+.settings-title{font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;margin-bottom:8px}
+.settings-sub{color:var(--muted);font-size:14px;margin-bottom:40px}
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:20px}
+.settings-section-title{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;color:var(--violet-bright);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(139,92,246,.08)}
+.settings-row:last-child{border-bottom:none;padding-bottom:0}
+.settings-row-label{font-size:14px;font-weight:500}
+.settings-row-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.theme-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.theme-btn{width:44px;height:44px;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:all .2s;position:relative}
+.theme-btn.active{border-color:var(--white);transform:scale(1.1)}
+.theme-btn::after{content:attr(data-label);position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap}
+.lang-select{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:13px;outline:none;cursor:pointer}
+.toggle-sw{position:relative;width:44px;height:24px;cursor:pointer}
+.toggle-sw input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border-radius:12px;transition:.3s}
+.toggle-sw input:checked + .toggle-track{background:var(--violet-mid)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.3s}
+.toggle-sw input:checked ~ .toggle-thumb{left:23px}
+.btn-danger{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#f87171;padding:10px 20px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-danger:hover{background:rgba(248,113,113,.2)}
+
+/* MASTER */
 #masterPage{padding-top:70px;min-height:100vh}
 .master-container{max-width:1200px;margin:0 auto;padding:40px}
 .master-header{display:flex;align-items:center;gap:16px;margin-bottom:40px}
@@ -239,30 +283,27 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
 .stat-num{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:var(--white);margin-bottom:4px}
 .stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.master-users-title{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;margin-bottom:16px;color:var(--white)}
 .users-table{width:100%;border-collapse:collapse}
 .users-table th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border)}
-.users-table td{padding:14px 16px;border-bottom:1px solid rgba(139,92,246,.08);font-size:13px;vertical-align:middle}
-.users-table tr:hover td{background:rgba(139,92,246,.05)}
-.user-email-cell{color:var(--white);font-weight:500}
-.user-row-actions{display:flex;gap:6px;flex-wrap:wrap}
+.users-table td{padding:13px 16px;border-bottom:1px solid rgba(139,92,246,.07);font-size:13px;vertical-align:middle}
+.users-table tr:hover td{background:rgba(139,92,246,.04)}
 .btn-role{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'Exo 2',sans-serif}
 .btn-role-normal{background:rgba(139,92,246,.2);color:var(--violet-bright)}
 .btn-role-tester{background:rgba(6,182,212,.2);color:var(--cyan)}
 .btn-role-premium{background:rgba(245,158,11,.2);color:var(--gold)}
-.btn-role:hover{transform:scale(1.05);filter:brightness(1.2)}
-.user-detail-panel{background:rgba(139,92,246,.06);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:8px;display:none;animation:cardIn .2s ease}
+.btn-role:hover{filter:brightness(1.3);transform:scale(1.05)}
+.user-detail-panel{background:rgba(139,92,246,.05);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:6px;display:none;animation:cardIn .2s ease}
 .user-detail-panel.open{display:block}
 .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
 .detail-item{background:rgba(255,255,255,.03);border-radius:8px;padding:12px}
-.detail-item-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.detail-item-value{font-size:14px;font-weight:600;color:var(--white)}
+.detail-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.detail-value{font-size:14px;font-weight:600}
 .online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
-.online-dot.online{background:#4ade80;box-shadow:0 0 6px #4ade80}
-.online-dot.offline{background:var(--muted)}
+.online-dot.on{background:#4ade80;box-shadow:0 0 6px #4ade80}
+.online-dot.off{background:var(--muted)}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(30,10,60,.97);border:1px solid rgba(236,72,153,.3);color:#f9a8d4;padding:10px 20px;border-radius:10px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;max-width:420px;text-align:center;backdrop-filter:blur(20px)}
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(30,10,60,.97);border:1px solid rgba(236,72,153,.3);color:#f9a8d4;padding:10px 20px;border-radius:10px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;max-width:440px;text-align:center;backdrop-filter:blur(20px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{border-color:rgba(6,182,212,.4);color:#67e8f9}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
@@ -277,9 +318,9 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
   .chat-side.open{transform:translateX(0)}
   .sidebar-toggle{display:flex}
   .sidebar-overlay.open{display:block}
-  .chat-header{padding:14px 16px}.msg-area{padding:20px 16px}.inp-area{padding:12px 16px 16px}
+  .chat-header,.msg-area,.inp-area,.img-preview-bar{padding-left:16px;padding-right:16px}
   .detail-grid{grid-template-columns:1fr 1fr}
-  .master-container{padding:20px}
+  .settings-container,.master-container{padding:20px}
 }
 </style>
 </head>
@@ -288,8 +329,9 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 <canvas id="spaceCanvas"></canvas>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+<input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="handleImgSelect(event)">
 
-<!-- ══ NAVBAR ══ -->
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar" style="display:none">
   <div class="nav-logo" onclick="goHome()">NEXUS</div>
   <ul class="nav-links">
@@ -302,8 +344,9 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
   <div class="nav-right">
     <div id="navUserArea">
       <div class="credits-display">⚡ <span id="navCredits">—</span></div>
-      <span id="navUserName"></span>
+      <span id="navUserName" onclick="showPage('settings')" title="Paramètres"></span>
       <span id="navRoleBadge" class="role-badge role-normal">Normal</span>
+      <button class="btn-nav btn-outline" onclick="showPage('settings')" title="Paramètres">⚙️</button>
       <button class="btn-nav btn-outline" onclick="doLogout()">Déconnexion</button>
     </div>
     <div id="navAuthArea">
@@ -313,60 +356,53 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
   </div>
 </nav>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div class="page" id="loginPage">
-  <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">NEXUS</div>
-      <p class="auth-sub">Bienvenue — Connectez-vous à votre espace</p>
-      <div class="auth-err" id="loginErr"></div>
-      <div class="auth-ok" id="loginOk"></div>
-      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="loginEmail" placeholder="vous@example.com"/></div>
-      <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn-full" id="loginBtn" onclick="doLogin()">Se connecter</button>
-      <p class="auth-switch">Pas encore de compte ? <a onclick="showPage('register')">S'inscrire</a></p>
-    </div>
-  </div>
+  <div class="auth-page"><div class="auth-card">
+    <div class="auth-logo">NEXUS</div>
+    <p class="auth-sub">Bienvenue — Connectez-vous</p>
+    <div class="auth-err" id="loginErr"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="loginEmail" placeholder="vous@example.com"/></div>
+    <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="btn-full" id="loginBtn" onclick="doLogin()">Se connecter</button>
+    <p class="auth-switch">Pas encore de compte ? <a onclick="showPage('register')">S'inscrire</a></p>
+  </div></div>
 </div>
 
-<!-- ══ REGISTER ══ -->
+<!-- REGISTER -->
 <div class="page" id="registerPage">
-  <div class="auth-page">
-    <div class="auth-card">
-      <div class="auth-logo">NEXUS</div>
-      <p class="auth-sub">Créez votre compte en quelques secondes</p>
-      <div class="auth-err" id="registerErr"></div>
-      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="regEmail" placeholder="vous@example.com"/></div>
-      <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="regPass" placeholder="6 caractères minimum"/></div>
-      <div class="form-group"><label class="form-label">Confirmer</label><input type="password" class="form-input" id="regConfirm" placeholder="••••••••" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-      <button class="btn-full" id="registerBtn" onclick="doRegister()">Créer mon compte</button>
-      <p class="auth-switch">Déjà un compte ? <a onclick="showPage('login')">Se connecter</a></p>
-    </div>
-  </div>
+  <div class="auth-page"><div class="auth-card">
+    <div class="auth-logo">NEXUS</div>
+    <p class="auth-sub">Créez votre compte</p>
+    <div class="auth-err" id="registerErr"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="regEmail" placeholder="vous@example.com"/></div>
+    <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="regPass" placeholder="6 caractères minimum"/></div>
+    <div class="form-group"><label class="form-label">Confirmer</label><input type="password" class="form-input" id="regConfirm" placeholder="••••••••" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+    <button class="btn-full" id="registerBtn" onclick="doRegister()">Créer mon compte</button>
+    <p class="auth-switch">Déjà un compte ? <a onclick="showPage('login')">Se connecter</a></p>
+  </div></div>
 </div>
 
-<!-- ══ VERIFY ══ -->
+<!-- VERIFY -->
 <div class="page" id="verifyPage">
-  <div class="auth-page">
-    <div class="auth-card verif-card">
-      <div class="verif-icon">✉️</div>
-      <div class="verif-title">Vérifiez votre email</div>
-      <p class="verif-text">Un lien de vérification a été envoyé à :</p>
-      <div class="verif-email" id="verifyEmail">—</div>
-      <p class="verif-text">Cliquez sur le lien, puis connectez-vous.</p>
-      <button class="btn-full" onclick="showPage('login')">Aller à la connexion →</button>
-      <br><button class="btn-ghost" onclick="resendVerif()">Renvoyer l'email</button>
-    </div>
-  </div>
+  <div class="auth-page"><div class="auth-card verif-card">
+    <div class="verif-icon">✉️</div>
+    <div class="verif-title">Vérifiez votre email</div>
+    <p class="verif-text">Un lien a été envoyé à :</p>
+    <div class="verif-email" id="verifyEmail">—</div>
+    <p class="verif-text">Cliquez sur le lien puis connectez-vous.</p>
+    <button class="btn-full" onclick="showPage('login')">Aller à la connexion →</button>
+    <br><button class="btn-ghost" onclick="resendVerif()">Renvoyer l'email</button>
+  </div></div>
 </div>
 
-<!-- ══ HOME ══ -->
+<!-- HOME -->
 <div class="page" id="homePage" style="padding-top:70px">
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">Nouvelle génération d'IA</div>
       <h1 class="hero-title">Bienvenue sur<br><span>NEXUS</span></h1>
-      <p class="hero-sub">Une plateforme IA puissante, conviviale et construite pour le futur. Propulsée par les meilleurs modèles du monde.</p>
+      <p class="hero-sub">Une plateforme IA puissante construite pour le futur. Propulsée par les meilleurs modèles du monde.</p>
       <div class="hero-ctas">
         <button class="btn-hp" onclick="goChat()">Commencer maintenant</button>
         <button class="btn-hs" onclick="showPage('pricing')">Voir les offres</button>
@@ -378,14 +414,10 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
     <h2 class="section-title">Nexus — L'IA <span style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">au service</span> de votre vision</h2>
     <p class="section-desc">Conçu pour les créateurs, entrepreneurs et développeurs qui veulent aller plus loin.</p>
     <div class="about-grid reveal">
-      <div class="about-visual">
-        <div class="orbit-ring ring-1"><div class="orbit-dot"></div></div>
-        <div class="orbit-ring ring-2"></div>
-        <div class="about-orb">NX</div>
-      </div>
+      <div class="about-visual"><div class="orbit-ring ring-1"><div class="orbit-dot"></div></div><div class="orbit-ring ring-2"></div><div class="about-orb">NX</div></div>
       <div class="about-features">
         <div class="about-feat"><div class="feat-icon">🤖</div><div class="feat-text"><h4>IA Powered</h4><p>GPT-4, Claude, Llama et plus via OpenRouter.</p></div></div>
-        <div class="about-feat"><div class="feat-icon">🎨</div><div class="feat-text"><h4>Personnalisable</h4><p>Adaptez l'expérience à votre marque facilement.</p></div></div>
+        <div class="about-feat"><div class="feat-icon">🖼️</div><div class="feat-text"><h4>Vision IA</h4><p>Envoyez des photos à l'IA pour des analyses visuelles.</p></div></div>
         <div class="about-feat"><div class="feat-icon">🔒</div><div class="feat-text"><h4>Sécurisé</h4><p>Auth Supabase, chiffrement total, vie privée garantie.</p></div></div>
       </div>
     </div>
@@ -417,114 +449,80 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
           <div class="contact-form-title">Envoyer un message</div>
           <div class="form-group"><label class="form-label">Nom</label><input type="text" class="form-input" id="cName" placeholder="Votre nom"/></div>
           <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="cEmail" placeholder="votre@email.com"/></div>
-          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="4" id="cMsg" placeholder="Décrivez votre projet..." style="resize:vertical"></textarea></div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="4" id="cMsg" style="resize:vertical" placeholder="Décrivez votre projet..."></textarea></div>
           <button class="btn-full" onclick="sendContact()">Envoyer</button>
         </div>
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="footer-inner">
-      <div><div class="footer-logo">NEXUS</div><p class="footer-text">© 2025 Nexus AI. Tous droits réservés.</p></div>
-      <div class="footer-socials"><div class="soc-btn">f</div><div class="soc-btn">𝕏</div><div class="soc-btn">✉</div></div>
-    </div>
-  </footer>
+  <footer class="footer"><div class="footer-inner">
+    <div><div class="footer-logo">NEXUS</div><p class="footer-text">© 2025 Nexus AI.</p></div>
+    <div class="footer-socials"><div class="soc-btn">f</div><div class="soc-btn">𝕏</div><div class="soc-btn">✉</div></div>
+  </div></footer>
 </div>
 
-<!-- ══ PRICING ══ -->
+<!-- PRICING -->
 <div class="page" id="pricingPage">
   <div class="pricing-hero">
     <div class="section-label">Abonnements</div>
     <h2 class="section-title">Choisissez votre <span style="background:linear-gradient(135deg,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">plan</span></h2>
-    <p class="section-desc">Accédez à plus de crédits et débloquez des fonctionnalités exclusives.</p>
+    <p class="section-desc">Plus de crédits et des fonctionnalités exclusives.</p>
   </div>
   <div class="pricing-grid">
     <div class="pricing-card">
-      <div class="plan-icon">👤</div>
-      <div class="plan-name">Normal</div>
-      <div class="plan-price">0<span>€</span></div>
-      <div class="plan-alt">Gratuit pour toujours</div>
-      <ul class="plan-features">
-        <li>60 crédits par jour</li>
-        <li>Accès à tous les modèles IA</li>
-        <li>Chat illimité</li>
-        <li>Support communauté</li>
-      </ul>
-      <button class="btn-plan btn-plan-outline" onclick="goChat()">Commencer gratuitement</button>
+      <div class="plan-icon">👤</div><div class="plan-name">Normal</div>
+      <div class="plan-price">0<span>€</span></div><div class="plan-alt">Gratuit pour toujours</div>
+      <ul class="plan-features"><li>60 crédits/jour</li><li>Tous les modèles IA</li><li>Envoi de photos</li><li>Historique local</li></ul>
+      <button class="btn-plan btn-plan-outline" onclick="goChat()">Commencer</button>
     </div>
     <div class="pricing-card popular">
       <div class="popular-badge">⭐ Populaire</div>
-      <div class="plan-icon">🚀</div>
-      <div class="plan-name" style="color:var(--gold)">Premium</div>
-      <div class="plan-price" style="color:var(--gold)">6,99<span>€/mois</span></div>
-      <div class="plan-alt">ou 49€/an — économisez 35%</div>
-      <ul class="plan-features">
-        <li>Crédits illimités</li>
-        <li>Tous les modèles IA</li>
-        <li>Réponses prioritaires</li>
-        <li>Support premium</li>
-        <li>Accès anticipé aux nouveautés</li>
-      </ul>
+      <div class="plan-icon">🚀</div><div class="plan-name" style="color:var(--gold)">Premium</div>
+      <div class="plan-price" style="color:var(--gold)">6,99<span>€/mois</span></div><div class="plan-alt">ou 49€/an — économisez 35%</div>
+      <ul class="plan-features"><li>Crédits illimités</li><li>Tous les modèles IA</li><li>Réponses prioritaires</li><li>Support premium</li><li>Accès anticipé</li></ul>
       <div style="display:flex;flex-direction:column;gap:8px">
         <button class="btn-plan btn-plan-gold" onclick="paypalPay('monthly')">💳 6,99€/mois</button>
         <button class="btn-plan btn-plan-gold" style="opacity:.85" onclick="paypalPay('yearly')">💳 49€/an</button>
       </div>
     </div>
     <div class="pricing-card">
-      <div class="plan-icon">🧪</div>
-      <div class="plan-name" style="color:var(--cyan)">Testeur</div>
-      <div class="plan-price" style="color:var(--cyan)">—</div>
-      <div class="plan-alt">Sur invitation uniquement</div>
-      <ul class="plan-features">
-        <li>120 crédits par jour</li>
-        <li>Accès bêta aux fonctionnalités</li>
-        <li>Tous les modèles IA</li>
-        <li>Canal testeurs dédié</li>
-      </ul>
+      <div class="plan-icon">🧪</div><div class="plan-name" style="color:var(--cyan)">Testeur</div>
+      <div class="plan-price" style="color:var(--cyan)">—</div><div class="plan-alt">Sur invitation</div>
+      <ul class="plan-features"><li>120 crédits/jour</li><li>Accès bêta</li><li>Tous les modèles IA</li><li>Canal testeurs</li></ul>
       <button class="btn-plan btn-plan-outline" style="opacity:.5;cursor:not-allowed">Sur invitation</button>
     </div>
   </div>
-  <div style="text-align:center;padding-bottom:60px">
-    <button class="btn-ghost" onclick="goHome()">← Retour</button>
-  </div>
+  <div style="text-align:center;padding-bottom:60px"><button class="btn-ghost" onclick="goHome()">← Retour</button></div>
 </div>
 
-<!-- ══ CHAT ══ -->
+<!-- CHAT -->
 <div class="page" id="chatPage">
   <div class="chat-container">
     <div class="chat-side" id="chatSidebar">
-      <button class="new-chat-btn" onclick="newChat()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nouvelle conversation
-      </button>
-      <div class="side-lbl">Récent</div>
-      <div class="hist-list" id="histList"></div>
-      <div class="side-sec">
-        <div class="credits-bar">
-          <div class="credits-bar-label">Crédits aujourd'hui</div>
-          <div class="credits-bar-track"><div class="credits-bar-fill" id="creditsBarFill" style="width:100%"></div></div>
-          <div class="credits-bar-count"><span id="creditsLeft">—</span> / <span id="creditsMax">—</span></div>
-        </div>
+      <div class="chat-side-top">
+        <button class="new-chat-btn" onclick="newChat()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nouvelle conversation
+        </button>
+        <div class="side-lbl">Historique</div>
       </div>
-      <div class="side-sec">
+      <div class="hist-list" id="histList"></div>
+      <div class="side-bottom">
         <div class="side-sec-lbl">Modèle IA</div>
         <select class="model-sel" id="modelSel" onchange="updateBadge()">
-          <option value="openai/gpt-4o-mini">GPT-4o Mini (rapide)</option>
-          <option value="openai/gpt-4o">GPT-4o</option>
+          <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+          <option value="openai/gpt-4o">GPT-4o (Vision)</option>
           <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
           <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
           <option value="meta-llama/llama-3.1-8b-instruct">Llama 3.1 8B</option>
           <option value="google/gemini-flash-1.5">Gemini Flash 1.5</option>
         </select>
-      </div>
-      <div class="side-sec" id="orKeySection" style="display:none">
-        <div class="side-sec-lbl">Clé OpenRouter</div>
-        <input type="password" class="key-inp" id="orKey" placeholder="sk-or-v1-..." oninput="saveKey()"/>
-        <div class="key-st" id="keySt"></div>
-      </div>
-      <div class="side-sec" style="border:none;padding:8px 0 0;display:flex;flex-direction:column;gap:6px">
-        <button class="btn-ghost" style="width:100%;text-align:center;font-size:12px" onclick="showPage('pricing')">⭐ Passer Premium</button>
-        <button class="btn-ghost" style="width:100%;text-align:center;font-size:12px" onclick="goHome()">← Retour au site</button>
+        <div class="credits-bar">
+          <div class="credits-bar-label">Crédits aujourd'hui</div>
+          <div class="credits-bar-track"><div class="credits-bar-fill" id="creditsBarFill" style="width:100%"></div></div>
+          <div class="credits-bar-count"><span id="creditsLeft">—</span> / <span id="creditsMax">—</span></div>
+        </div>
+        <button class="btn-ghost" style="width:100%;text-align:center;font-size:12px;margin-top:4px" onclick="showPage('pricing')">⭐ Passer Premium</button>
       </div>
     </div>
     <div class="chat-main">
@@ -536,7 +534,7 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
         <div class="chat-empty-state" id="chatEmpty">
           <div class="empty-orb">NX</div>
           <div class="empty-title">Nexus IA est prêt</div>
-          <div class="empty-sub">Entrez votre clé OpenRouter et choisissez un modèle.</div>
+          <div class="empty-sub">Choisissez un modèle et commencez à écrire</div>
           <div class="suggs">
             <div class="sugg" onclick="useSugg(this)">✍️ Rédige un email professionnel</div>
             <div class="sugg" onclick="useSugg(this)">💻 Aide-moi à coder en Python</div>
@@ -545,66 +543,119 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
           </div>
         </div>
       </div>
+      <div class="img-preview-bar" id="imgPreviewBar"></div>
       <div class="inp-area">
         <div class="inp-wrap">
+          <button class="inp-icon-btn" onclick="document.getElementById('imgFileInput').click()" title="Ajouter une image">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </button>
           <textarea id="chatInput" placeholder="Écrivez votre message..." rows="1" onkeydown="onKey(event)" oninput="resizeInp(this)"></textarea>
           <button class="send-btn" id="sendBtn" onclick="sendMsg()">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
-        <div class="inp-hint"><span>Entrée pour envoyer · Maj+Entrée pour nouvelle ligne</span><span id="hintCredits"></span></div>
+        <div class="inp-hint"><span>Entrée pour envoyer · Maj+Entrée nouvelle ligne</span><span id="hintCredits" style="color:var(--muted)"></span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ MASTER DASHBOARD ══ -->
+<!-- SETTINGS -->
+<div class="page" id="settingsPage">
+  <div class="settings-container">
+    <div class="settings-title">⚙️ Paramètres</div>
+    <div class="settings-sub">Personnalisez votre expérience Nexus</div>
+
+    <!-- Profil -->
+    <div class="settings-section">
+      <div class="settings-section-title">👤 Profil</div>
+      <div class="form-group"><label class="form-label">Pseudo</label><input type="text" class="form-input" id="settingsPseudo" placeholder="Votre pseudo"/></div>
+      <div class="form-group"><label class="form-label">Email (lecture seule)</label><input type="text" class="form-input" id="settingsEmail" placeholder="—" readonly style="opacity:.6"/></div>
+      <button class="btn-full" style="margin-top:0" onclick="savePseudo()">Sauvegarder le pseudo</button>
+    </div>
+
+    <!-- Sécurité -->
+    <div class="settings-section">
+      <div class="settings-section-title">🔒 Sécurité</div>
+      <div class="form-group"><label class="form-label">Nouveau mot de passe</label><input type="password" class="form-input" id="newPass" placeholder="6 caractères minimum"/></div>
+      <div class="form-group"><label class="form-label">Confirmer</label><input type="password" class="form-input" id="confPass" placeholder="••••••••"/></div>
+      <button class="btn-full" style="margin-top:0" onclick="changePass()">Changer le mot de passe</button>
+    </div>
+
+    <!-- Apparence -->
+    <div class="settings-section">
+      <div class="settings-section-title">🎨 Apparence</div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Thème de couleur</div><div class="settings-row-sub">Choisissez la couleur principale</div></div>
+      </div>
+      <div class="theme-grid" style="margin-top:16px">
+        <div class="theme-btn active" data-theme="" data-label="Violet" style="background:linear-gradient(135deg,#4b0fd4,#8b5cf6)" onclick="setTheme(this,'')"></div>
+        <div class="theme-btn" data-theme="blue" data-label="Bleu" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)" onclick="setTheme(this,'blue')"></div>
+        <div class="theme-btn" data-theme="green" data-label="Vert" style="background:linear-gradient(135deg,#059669,#34d399)" onclick="setTheme(this,'green')"></div>
+        <div class="theme-btn" data-theme="pink" data-label="Rose" style="background:linear-gradient(135deg,#db2777,#f472b6)" onclick="setTheme(this,'pink')"></div>
+      </div>
+    </div>
+
+    <!-- Langue -->
+    <div class="settings-section">
+      <div class="settings-section-title">🌐 Langue</div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Langue de l'interface</div></div>
+        <select class="lang-select" id="langSelect" onchange="setLang(this.value)">
+          <option value="fr">🇫🇷 Français</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Danger -->
+    <div class="settings-section" style="border-color:rgba(248,113,113,.2)">
+      <div class="settings-section-title" style="color:#f87171">⚠️ Zone de danger</div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Supprimer mon compte</div><div class="settings-row-sub">Action irréversible — toutes vos données seront supprimées</div></div>
+        <button class="btn-danger" onclick="deleteAccount()">Supprimer</button>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <button class="btn-ghost" onclick="goHome()">← Retour</button>
+    </div>
+  </div>
+</div>
+
+<!-- MASTER -->
 <div class="page" id="masterPage">
   <div class="master-container">
     <div class="master-header">
-      <div>
-        <div class="master-title">⚡ MASTER DASHBOARD</div>
-        <div style="color:var(--muted);font-size:13px;margin-top:4px">Panneau de contrôle Nexus — Accès exclusif créateur</div>
-      </div>
+      <div><div class="master-title">⚡ MASTER DASHBOARD</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Panneau créateur — Accès exclusif</div></div>
       <div class="master-badge">CRÉATEUR</div>
     </div>
     <div class="master-stats">
-      <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Utilisateurs total</div></div>
-      <div class="stat-card"><div class="stat-num" id="statOnline" style="color:#4ade80">—</div><div class="stat-label">En ligne aujourd'hui</div></div>
-      <div class="stat-card"><div class="stat-num" id="statPremium" style="color:var(--gold)">—</div><div class="stat-label">Comptes Premium</div></div>
+      <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Utilisateurs</div></div>
+      <div class="stat-card"><div class="stat-num" id="statOnline" style="color:#4ade80">—</div><div class="stat-label">Actifs 24h</div></div>
+      <div class="stat-card"><div class="stat-num" id="statPremium" style="color:var(--gold)">—</div><div class="stat-label">Premium</div></div>
       <div class="stat-card"><div class="stat-num" id="statTesters" style="color:var(--cyan)">—</div><div class="stat-label">Testeurs</div></div>
     </div>
-    <div class="master-users-title">👥 Tous les utilisateurs</div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+    <div style="font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px">👥 Utilisateurs</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:auto">
       <table class="users-table">
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Rôle</th>
-            <th>Crédits utilisés</th>
-            <th>Inscrit le</th>
-            <th>Statut</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="usersTableBody">
-          <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Chargement...</td></tr>
-        </tbody>
+        <thead><tr><th>Email</th><th>Pseudo</th><th>Rôle</th><th>Crédits</th><th>Inscrit</th><th>Statut</th><th>Actions</th></tr></thead>
+        <tbody id="usersTableBody"><tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Chargement...</td></tr></tbody>
       </table>
     </div>
-    <div style="margin-top:20px;text-align:center">
+    <div style="margin-top:20px;display:flex;gap:8px">
       <button class="btn-ghost" onclick="loadMasterData()">🔄 Actualiser</button>
-      <button class="btn-ghost" style="margin-left:8px" onclick="goHome()">← Retour au site</button>
+      <button class="btn-ghost" onclick="goHome()">← Retour</button>
     </div>
   </div>
 </div>
 
-<!-- ══ CREDITS MODAL ══ -->
+<!-- CREDITS MODAL -->
 <div class="modal-overlay" id="creditsModal">
   <div class="modal-box">
     <div class="modal-icon">⚡</div>
     <div class="modal-title">Crédits épuisés</div>
-    <div class="modal-text" id="creditsModalText">Vous avez utilisé tous vos crédits pour aujourd'hui. Passez à un plan supérieur pour en avoir plus !</div>
+    <div class="modal-text" id="creditsModalText">Vous avez utilisé tous vos crédits pour aujourd'hui.</div>
     <div class="modal-btns">
       <button class="btn-full" style="margin-top:0" onclick="showPage('pricing');closeModal()">⭐ Voir les offres</button>
       <button class="btn-ghost" onclick="closeModal()">Fermer</button>
@@ -616,482 +667,481 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
 
 <script>
 // ╔══════════════════════════════════════════════╗
-// ║  🔧 CONFIGURATION SUPABASE                   ║
-// ║  supabase.com → Settings → API               ║
+// ║  🔧 CONFIGURATION — À modifier              ║
 // ╚══════════════════════════════════════════════╝
 var SUPABASE_URL = "https://ddebrzazzbsihtrrzuel.supabase.co";
 var SUPABASE_KEY = "sb_publishable_B5IyGY0fiLx6AGTvgP1tVg_MrDkpCyE";
-
-// Compte Créateur/Master
+var OR_KEY = "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";
 var CREATOR_EMAIL = "louistou07@gmail.com";
 
-// ─── RÔLES & CRÉDITS ─────────────────────────────
+// ── RÔLES ──────────────────────────────────────
 var ROLES = {
-  normal:  { label:'Normal',  credits:60,  badgeClass:'role-normal'  },
-  tester:  { label:'Testeur', credits:120, badgeClass:'role-tester'  },
-  premium: { label:'Premium', credits:999999, badgeClass:'role-premium' },
-  creator: { label:'Créateur',credits:999999, badgeClass:'role-creator' }
+  normal:  {label:'Normal',  credits:60,     cls:'role-normal'},
+  tester:  {label:'Testeur', credits:120,    cls:'role-tester'},
+  premium: {label:'Premium', credits:999999, cls:'role-premium'},
+  creator: {label:'Créateur',credits:999999, cls:'role-creator'}
 };
 
-// ─── STATE ────────────────────────────────────────
-var sb = null, sbOK = false;
-var currentUser = null;
-var userProfile = null; // {role, credits_used, credits_reset_date}
-var pendingEmail = "";
+// ── STATE ──────────────────────────────────────
+var sb=null, sbOK=false;
+var currentUser=null, userProfile=null;
+var pendingEmail='';
+var pendingImages=[];  // [{base64, type, thumb}]
+var conversations={}; // {id: {title, msgs}}
+var activeConvId=null;
 
-// ─── INIT SUPABASE ────────────────────────────────
-function initSupabase() {
-  if (SUPABASE_URL==="VOTRE_URL_ICI") return;
-  try {
-    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    sbOK = true;
-    sb.auth.getSession().then(function(res){
-      if (res.data && res.data.session) {
-        currentUser = res.data.session.user;
-        loadProfile().then(function(){ showPage('home'); });
-      }
+// ── INIT ───────────────────────────────────────
+function initSupabase(){
+  if(SUPABASE_URL==='VOTRE_URL_ICI')return;
+  try{
+    sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    sbOK=true;
+    sb.auth.getSession().then(function(r){
+      if(r.data&&r.data.session){currentUser=r.data.session.user;loadProfile().then(function(){showPage('home');});}
     });
-    sb.auth.onAuthStateChange(function(event, session){
-      if (event==='SIGNED_IN' && session) {
-        currentUser = session.user;
-        loadProfile().then(function(){
-          if (currentUser.email_confirmed_at) showPage('home');
-        });
-      } else if (event==='SIGNED_OUT') {
-        currentUser = null; userProfile = null;
-      }
+    sb.auth.onAuthStateChange(function(ev,sess){
+      if(ev==='SIGNED_IN'&&sess){currentUser=sess.user;loadProfile().then(function(){if(currentUser.email_confirmed_at)showPage('home');});}
+      else if(ev==='SIGNED_OUT'){currentUser=null;userProfile=null;}
     });
-  } catch(e) { console.error(e); }
+  }catch(e){console.error(e);}
 }
 
-// ─── PROFILE / CRÉDITS ────────────────────────────
-async function loadProfile() {
-  if (!sb || !currentUser) return;
-  // Forcer créateur si c'est le bon email
-  if (currentUser.email === CREATOR_EMAIL) {
-    userProfile = { role:'creator', credits_used:0, credits_reset_date: today() };
+async function loadProfile(){
+  if(!sb||!currentUser)return;
+  if(currentUser.email===CREATOR_EMAIL){
+    userProfile={role:'creator',credits_used:0,credits_reset_date:today(),pseudo:''};
     await upsertProfile();
-  } else {
-    var res = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
-    if (res.error || !res.data) {
-      // Créer le profil
-      userProfile = { role:'normal', credits_used:0, credits_reset_date: today() };
-      await upsertProfile();
-    } else {
-      userProfile = res.data;
-      // Reset crédits si nouveau jour
-      if (userProfile.credits_reset_date !== today()) {
-        userProfile.credits_used = 0;
-        userProfile.credits_reset_date = today();
-        await upsertProfile();
-      }
+  }else{
+    var r=await sb.from('profiles').select('*').eq('id',currentUser.id).single();
+    if(r.error||!r.data){userProfile={role:'normal',credits_used:0,credits_reset_date:today(),pseudo:''};await upsertProfile();}
+    else{
+      userProfile=r.data;
+      if(userProfile.credits_reset_date!==today()){userProfile.credits_used=0;userProfile.credits_reset_date=today();await upsertProfile();}
     }
   }
+  loadTheme();
   updateUI();
 }
 
-async function upsertProfile() {
-  if (!sb || !currentUser || !userProfile) return;
-  await sb.from('profiles').upsert({
-    id: currentUser.id,
-    email: currentUser.email,
-    role: userProfile.role,
-    credits_used: userProfile.credits_used,
-    credits_reset_date: userProfile.credits_reset_date,
-    last_seen: new Date().toISOString()
-  });
+async function upsertProfile(){
+  if(!sb||!currentUser||!userProfile)return;
+  await sb.from('profiles').upsert({id:currentUser.id,email:currentUser.email,role:userProfile.role,credits_used:userProfile.credits_used,credits_reset_date:userProfile.credits_reset_date,last_seen:new Date().toISOString(),pseudo:userProfile.pseudo||''});
 }
 
-function today() {
-  return new Date().toISOString().slice(0,10);
-}
+function today(){return new Date().toISOString().slice(0,10);}
+function getMax(){return userProfile?(ROLES[userProfile.role]||ROLES.normal).credits:60;}
+function getLeft(){var m=getMax();if(m>=999999)return 999999;return Math.max(0,m-(userProfile?userProfile.credits_used||0:0));}
+async function useCredit(){if(!userProfile)return true;var m=getMax();if(m>=999999)return true;if((userProfile.credits_used||0)>=m)return false;userProfile.credits_used=(userProfile.credits_used||0)+1;await upsertProfile();updateCreditsUI();return true;}
 
-function getMaxCredits() {
-  if (!userProfile) return 60;
-  return ROLES[userProfile.role] ? ROLES[userProfile.role].credits : 60;
-}
-
-function getCreditsLeft() {
-  if (!userProfile) return 0;
-  var max = getMaxCredits();
-  if (max >= 999999) return 999999;
-  return Math.max(0, max - (userProfile.credits_used || 0));
-}
-
-async function useCredit() {
-  if (!userProfile) return false;
-  var max = getMaxCredits();
-  if (max >= 999999) return true; // illimité
-  if (userProfile.credits_used >= max) return false;
-  userProfile.credits_used = (userProfile.credits_used || 0) + 1;
-  await upsertProfile();
+// ── UI ─────────────────────────────────────────
+function updateUI(){
+  if(!currentUser||!userProfile)return;
+  var r=userProfile.role||'normal';
+  var ri=ROLES[r]||ROLES.normal;
+  var pseudo=userProfile.pseudo||currentUser.email.split('@')[0];
+  document.getElementById('navUserName').textContent=pseudo;
+  var b=document.getElementById('navRoleBadge');b.textContent=ri.label;b.className='role-badge '+ri.cls;
+  document.getElementById('masterNavLink').style.display=r==='creator'?'inline':'none';
   updateCreditsUI();
-  return true;
+  // Settings
+  document.getElementById('settingsPseudo').value=pseudo;
+  document.getElementById('settingsEmail').value=currentUser.email||'';
+  // Theme
+  loadTheme();
 }
 
-// ─── UI UPDATE ────────────────────────────────────
-function updateUI() {
-  if (!currentUser || !userProfile) return;
-  var role = userProfile.role || 'normal';
-  var roleInfo = ROLES[role] || ROLES.normal;
-  var left = getCreditsLeft();
-  var max = getMaxCredits();
-
-  // Navbar
-  document.getElementById('navUserName').textContent = currentUser.email.split('@')[0];
-  var badge = document.getElementById('navRoleBadge');
-  badge.textContent = roleInfo.label;
-  badge.className = 'role-badge ' + roleInfo.badgeClass;
-
-  // Crédits navbar
-  var credEl = document.getElementById('navCredits');
-  if (max >= 999999) credEl.textContent = '∞';
-  else credEl.textContent = left + '/' + max;
-
-  // Master link
-  var ml = document.getElementById('masterNavLink');
-  if (role === 'creator') ml.style.display = 'inline';
-  else ml.style.display = 'none';
-
-  updateCreditsUI();
+function updateCreditsUI(){
+  if(!userProfile)return;
+  var left=getLeft(),max=getMax();
+  document.getElementById('creditsLeft').textContent=max>=999999?'∞':left;
+  document.getElementById('creditsMax').textContent=max>=999999?'∞':max;
+  document.getElementById('navCredits').textContent=max>=999999?'∞':left+'/'+max;
+  var pct=max>=999999?100:Math.max(5,(left/max)*100);
+  var fill=document.getElementById('creditsBarFill');
+  fill.style.width=pct+'%';
+  fill.style.background=pct<20?'linear-gradient(90deg,#f87171,#ef4444)':'linear-gradient(90deg,var(--violet-bright),var(--cyan))';
+  document.getElementById('hintCredits').textContent=max>=999999?'∞ crédits':left+' crédits restants';
 }
 
-function updateCreditsUI() {
-  if (!userProfile) return;
-  var left = getCreditsLeft();
-  var max = getMaxCredits();
-  var used = userProfile.credits_used || 0;
-
-  document.getElementById('creditsLeft').textContent = max >= 999999 ? '∞' : left;
-  document.getElementById('creditsMax').textContent = max >= 999999 ? '∞' : max;
-
-  var pct = max >= 999999 ? 100 : Math.max(5, (left/max)*100);
-  var fill = document.getElementById('creditsBarFill');
-  fill.style.width = pct + '%';
-  fill.style.background = pct < 20 ? 'linear-gradient(90deg,#f87171,#ef4444)' : 'linear-gradient(90deg,var(--violet-bright),var(--cyan))';
-
-  var hint = document.getElementById('hintCredits');
-  if (max < 999999) hint.textContent = left + ' crédits restants';
-  else hint.textContent = 'Crédits illimités ✨';
-}
-
-// ─── NAVIGATION ───────────────────────────────────
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(function(p){ p.style.display='none'; });
-  var pg = document.getElementById(name+'Page');
-  if (!pg) return;
-  pg.style.display = (name==='chat') ? 'flex' : 'block';
+// ── NAVIGATION ─────────────────────────────────
+function showPage(name){
+  document.querySelectorAll('.page').forEach(function(p){p.style.display='none';});
+  var pg=document.getElementById(name+'Page');if(!pg)return;
+  pg.style.display=name==='chat'?'flex':'block';
   window.scrollTo(0,0);
   var nb=document.getElementById('navbar');
   var na=document.getElementById('navAuthArea');
   var nu=document.getElementById('navUserArea');
-  if (['home','chat','pricing','master'].indexOf(name)>=0) {
+  if(['home','chat','pricing','master','settings'].indexOf(name)>=0){
     nb.style.display='flex';
-    if (currentUser && userProfile) {
-      na.style.display='none'; nu.style.display='flex';
-    } else {
-      na.style.display='flex'; nu.style.display='none';
-    }
-  } else {
-    nb.style.display='none';
-  }
-  if (name==='home') setTimeout(initReveal,150);
-  if (name==='master') {
-    if (!userProfile || userProfile.role !== 'creator') { showPage('home'); return; }
-    loadMasterData();
-  }
-  if (name==='chat') { updateCreditsUI(); showKeySection(); }
+    if(currentUser&&userProfile){na.style.display='none';nu.style.display='flex';}
+    else{na.style.display='flex';nu.style.display='none';}
+  }else{nb.style.display='none';}
+  if(name==='home')setTimeout(initReveal,150);
+  if(name==='master'){if(!userProfile||userProfile.role!=='creator'){showPage('home');return;}loadMasterData();}
+  if(name==='chat'){updateCreditsUI();loadHistoryList();}
 }
+function goHome(){if(sbOK&&!currentUser){showPage('login');return;}showPage('home');}
+function goChat(){if(sbOK&&!currentUser){showPage('login');return;}showPage('chat');}
+function goSec(id){goHome();setTimeout(function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},200);}
+function toggleSidebar(){document.getElementById('chatSidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');}
+function closeSidebar(){document.getElementById('chatSidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
 
-function goHome() {
-  if (sbOK && !currentUser) { showPage('login'); return; }
-  showPage('home');
-}
-function goChat() {
-  if (sbOK && !currentUser) { showPage('login'); return; }
-  showPage('chat');
-}
-function goSec(id) {
-  goHome();
-  setTimeout(function(){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 200);
-}
+// ── AUTH ───────────────────────────────────────
+function showErr(id,msg){var e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
+function hideEl(id){document.getElementById(id).style.display='none';}
+function setBtn(id,loading,label){var b=document.getElementById(id);b.disabled=loading;b.innerHTML=loading?'<span class="spinner"></span>'+label:label;}
+function sbErr(m){var map={'Invalid login credentials':'Email ou mot de passe incorrect.','Email not confirmed':'Confirmez votre email.','User already registered':'Email déjà utilisé.','Password should be at least 6 characters':'Mot de passe trop court.'};for(var k in map){if(m&&m.includes(k))return map[k];}return m||'Erreur inconnue.';}
 
-// ─── SIDEBAR MOBILE ──────────────────────────────
-function toggleSidebar(){
-  document.getElementById('chatSidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
-}
-function closeSidebar(){
-  document.getElementById('chatSidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
-
-// ─── AUTH HELPERS ─────────────────────────────────
-function showErr(id,msg){ var e=document.getElementById(id); e.textContent=msg; e.style.display='block'; }
-function showOk(id,msg){ var e=document.getElementById(id); e.textContent=msg; e.style.display='block'; }
-function hideAll(id){ document.getElementById(id).style.display='none'; }
-function setBtn(id,loading,label){ var b=document.getElementById(id); b.disabled=loading; b.innerHTML=loading?'<span class="spinner"></span>'+label:label; }
-function sbErr(msg){
-  var m={'Invalid login credentials':'Email ou mot de passe incorrect.','Email not confirmed':'Confirmez votre email avant de vous connecter.','User already registered':'Cet email est déjà utilisé.','Password should be at least 6 characters':'Mot de passe trop court.','Email rate limit exceeded':'Trop d\'emails envoyés. Attendez quelques minutes.'};
-  for(var k in m){if(msg&&msg.includes(k))return m[k];}
-  return msg||'Erreur inconnue.';
-}
-
-function doLogin() {
-  hideAll('loginErr'); hideAll('loginOk');
+function doLogin(){
+  hideEl('loginErr');
   var email=document.getElementById('loginEmail').value.trim();
   var pass=document.getElementById('loginPass').value;
   if(!email||!pass){showErr('loginErr','Remplissez tous les champs.');return;}
-  if(!sbOK||!sb){showErr('loginErr','⚠️ Supabase non configuré. Remplis SUPABASE_URL et SUPABASE_KEY.');return;}
+  if(!sbOK){showErr('loginErr','⚠️ Supabase non configuré. Remplis SUPABASE_URL et SUPABASE_KEY dans le script.');return;}
   setBtn('loginBtn',true,'Connexion...');
-  sb.auth.signInWithPassword({email:email,password:pass})
-    .then(function(res){
-      if(res.error){showErr('loginErr',sbErr(res.error.message));return;}
-      currentUser=res.data.user;
-      return loadProfile();
-    })
-    .then(function(){
-      if(currentUser) { showPage('home'); toast('Bienvenue sur Nexus ! 🚀','success'); }
-    })
-    .catch(function(e){showErr('loginErr',sbErr(e.message));})
-    .finally(function(){setBtn('loginBtn',false,'Se connecter');});
+  sb.auth.signInWithPassword({email:email,password:pass}).then(function(r){
+    if(r.error){showErr('loginErr',sbErr(r.error.message));return;}
+    currentUser=r.data.user;return loadProfile();
+  }).then(function(){if(currentUser){showPage('home');toast('Bienvenue 🚀','success');}})
+  .catch(function(e){showErr('loginErr',sbErr(e.message));})
+  .finally(function(){setBtn('loginBtn',false,'Se connecter');});
 }
 
-function doRegister() {
-  hideAll('registerErr');
+function doRegister(){
+  hideEl('registerErr');
   var email=document.getElementById('regEmail').value.trim();
   var pass=document.getElementById('regPass').value;
   var conf=document.getElementById('regConfirm').value;
   if(!email||!pass||!conf){showErr('registerErr','Remplissez tous les champs.');return;}
-  if(pass!==conf){showErr('registerErr','Les mots de passe ne correspondent pas.');return;}
-  if(pass.length<6){showErr('registerErr','Mot de passe trop court (6 car. min).');return;}
-  if(!sbOK||!sb){showErr('registerErr','⚠️ Supabase non configuré. Remplis SUPABASE_URL et SUPABASE_KEY.');return;}
+  if(pass!==conf){showErr('registerErr','Mots de passe différents.');return;}
+  if(pass.length<6){showErr('registerErr','Mot de passe trop court.');return;}
+  if(!sbOK){showErr('registerErr','⚠️ Supabase non configuré.');return;}
   setBtn('registerBtn',true,'Création...');
-  sb.auth.signUp({email:email,password:pass})
-    .then(function(res){
-      if(res.error){showErr('registerErr',sbErr(res.error.message));return;}
-      pendingEmail=email;
-      document.getElementById('verifyEmail').textContent=email;
-      showPage('verify');
-      toast('Compte créé ! Vérifiez votre email 📧','success');
-    })
-    .catch(function(e){showErr('registerErr',sbErr(e.message));})
-    .finally(function(){setBtn('registerBtn',false,'Créer mon compte');});
+  sb.auth.signUp({email:email,password:pass}).then(function(r){
+    if(r.error){showErr('registerErr',sbErr(r.error.message));return;}
+    pendingEmail=email;document.getElementById('verifyEmail').textContent=email;
+    showPage('verify');toast('Compte créé ! Vérifiez votre email 📧','success');
+  }).catch(function(e){showErr('registerErr',sbErr(e.message));})
+  .finally(function(){setBtn('registerBtn',false,'Créer mon compte');});
 }
 
-function resendVerif(){
-  if(!sb||!pendingEmail)return;
-  sb.auth.resend({type:'signup',email:pendingEmail}).then(function(res){
-    if(res.error)toast('Erreur: '+res.error.message);
-    else toast('Email renvoyé ! 📧','success');
+function resendVerif(){if(!sb||!pendingEmail)return;sb.auth.resend({type:'signup',email:pendingEmail}).then(function(r){if(r.error)toast('Erreur: '+r.error.message);else toast('Email renvoyé 📧','success');});}
+function doLogout(){if(sb)sb.auth.signOut();currentUser=null;userProfile=null;showPage('login');toast('Déconnexion réussie.');}
+
+// ── SETTINGS ───────────────────────────────────
+async function savePseudo(){
+  var pseudo=document.getElementById('settingsPseudo').value.trim();
+  if(!pseudo){toast('Entrez un pseudo.');return;}
+  userProfile.pseudo=pseudo;
+  await upsertProfile();
+  updateUI();
+  toast('Pseudo sauvegardé ✓','success');
+}
+
+async function changePass(){
+  var np=document.getElementById('newPass').value;
+  var cp=document.getElementById('confPass').value;
+  if(!np||!cp){toast('Remplissez les deux champs.');return;}
+  if(np!==cp){toast('Les mots de passe ne correspondent pas.');return;}
+  if(np.length<6){toast('Mot de passe trop court (6 min).');return;}
+  if(!sb){toast('Supabase non configuré.');return;}
+  var r=await sb.auth.updateUser({password:np});
+  if(r.error)toast('Erreur: '+r.error.message);
+  else{toast('Mot de passe changé ✓','success');document.getElementById('newPass').value='';document.getElementById('confPass').value='';}
+}
+
+function setTheme(btn,theme){
+  document.querySelectorAll('.theme-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.body.className=theme?'theme-'+theme:'';
+  localStorage.setItem('nx_theme',theme);
+}
+
+function loadTheme(){
+  var t=localStorage.getItem('nx_theme')||'';
+  document.body.className=t?'theme-'+t:'';
+  document.querySelectorAll('.theme-btn').forEach(function(b){
+    b.classList.toggle('active',b.dataset.theme===t);
   });
 }
 
-function doLogout(){
-  if(sb)sb.auth.signOut();
-  currentUser=null; userProfile=null;
-  showPage('login'); toast('Déconnexion réussie.');
+function setLang(lang){
+  localStorage.setItem('nx_lang',lang);
+  toast(lang==='en'?'Language set to English ✓':'Langue définie en Français ✓','success');
 }
 
-// ─── PAYPAL ───────────────────────────────────────
-function paypalPay(plan) {
-  var amount = plan==='monthly' ? '6.99' : '49.00';
-  var desc = plan==='monthly' ? 'Nexus Premium - 1 mois' : 'Nexus Premium - 1 an';
-  var url = 'https://www.paypal.com/paypalme/louistoupin/' + amount + 'EUR';
-  // Ouvre PayPal dans un nouvel onglet
-  window.open(url, '_blank');
-  // Affiche une note
-  toast('Après le paiement, contactez-nous à info@nexus-ai.com pour activer votre Premium ✉️', 'success');
+async function deleteAccount(){
+  if(!confirm('⚠️ Supprimer définitivement votre compte ? Cette action est irréversible.'))return;
+  if(!sb||!currentUser){toast('Non connecté.');return;}
+  // Supprimer profil
+  await sb.from('profiles').delete().eq('id',currentUser.id);
+  // Déconnecter
+  await sb.auth.signOut();
+  currentUser=null;userProfile=null;
+  localStorage.removeItem('nx_theme');localStorage.removeItem('nx_lang');
+  showPage('login');
+  toast('Compte supprimé.');
 }
 
-// ─── MASTER DASHBOARD ────────────────────────────
-async function loadMasterData() {
-  if (!sb || !userProfile || userProfile.role !== 'creator') return;
-  var tbody = document.getElementById('usersTableBody');
-  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Chargement...</td></tr>';
+// ── PAYPAL ─────────────────────────────────────
+function paypalPay(plan){
+  var amount=plan==='monthly'?'6.99':'49.00';
+  window.open('https://www.paypal.com/paypalme/louistoupin/'+amount+'EUR','_blank');
+  toast('Après paiement, envoyez votre email à info@nexus-ai.com pour activer le Premium ✉️','success');
+}
 
-  var res = await sb.from('profiles').select('*').order('created_at', {ascending:false});
-  if (res.error) { tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#f87171;padding:24px">Erreur: '+res.error.message+'</td></tr>'; return; }
-
-  var users = res.data || [];
-  var total = users.length;
-  var premium = users.filter(function(u){return u.role==='premium';}).length;
-  var testers = users.filter(function(u){return u.role==='tester';}).length;
-  var todayStr = today();
-  var online = users.filter(function(u){
-    if(!u.last_seen) return false;
-    var d=new Date(u.last_seen); var now=new Date();
-    return (now-d) < 24*60*60*1000;
-  }).length;
-
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statOnline').textContent = online;
-  document.getElementById('statPremium').textContent = premium;
-  document.getElementById('statTesters').textContent = testers;
-
-  if (users.length === 0) {
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">Aucun utilisateur</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = users.map(function(u, idx){
-    var roleInfo = ROLES[u.role] || ROLES.normal;
-    var isOnline = u.last_seen && (new Date()-new Date(u.last_seen)) < 24*60*60*1000;
-    var max = ROLES[u.role] ? ROLES[u.role].credits : 60;
-    var credStr = max >= 999999 ? u.credits_used+'/' + '∞' : (u.credits_used||0)+'/'+max;
-    var joined = u.created_at ? new Date(u.created_at).toLocaleDateString('fr-FR') : '—';
-    return '<tr>' +
-      '<td class="user-email-cell">'+esc(u.email||'—')+'</td>' +
-      '<td><span class="role-badge '+roleInfo.badgeClass+'">'+roleInfo.label+'</span></td>' +
-      '<td style="color:var(--muted)">'+credStr+'</td>' +
-      '<td style="color:var(--muted)">'+joined+'</td>' +
-      '<td><span class="online-dot '+(isOnline?'online':'offline')+'"></span>'+(isOnline?'<span style="color:#4ade80">En ligne</span>':'<span style="color:var(--muted)">Hors ligne</span>')+'</td>' +
-      '<td><div class="user-row-actions">' +
-        '<button class="btn-role btn-role-normal" onclick="setRole(\''+u.id+'\',\'normal\','+idx+')">Normal</button>' +
-        '<button class="btn-role btn-role-tester" onclick="setRole(\''+u.id+'\',\'tester\','+idx+')">Testeur</button>' +
-        '<button class="btn-role btn-role-premium" onclick="setRole(\''+u.id+'\',\'premium\','+idx+')">Premium</button>' +
-        '<button class="btn-role" style="background:rgba(139,92,246,.2);color:var(--violet-bright)" onclick="toggleDetail(\'detail-'+idx+'\',\''+u.id+'\')">🔍</button>' +
-      '</div>' +
-      '<div class="user-detail-panel" id="detail-'+idx+'">'+
-        '<div class="detail-grid">' +
-          '<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value" style="font-size:11px;word-break:break-all">'+u.id+'</div></div>' +
-          '<div class="detail-item"><div class="detail-item-label">Email</div><div class="detail-item-value">'+esc(u.email||'—')+'</div></div>' +
-          '<div class="detail-item"><div class="detail-item-label">Rôle actuel</div><div class="detail-item-value"><span class="role-badge '+roleInfo.badgeClass+'">'+roleInfo.label+'</span></div></div>' +
-          '<div class="detail-item"><div class="detail-item-label">Crédits utilisés</div><div class="detail-item-value">'+(u.credits_used||0)+'</div></div>' +
-          '<div class="detail-item"><div class="detail-item-label">Reset crédits</div><div class="detail-item-value">'+(u.credits_reset_date||'—')+'</div></div>' +
-          '<div class="detail-item"><div class="detail-item-label">Dernière activité</div><div class="detail-item-value">'+(u.last_seen?new Date(u.last_seen).toLocaleString('fr-FR'):'—')+'</div></div>' +
-        '</div>' +
-        '<button class="btn-ghost" style="font-size:11px" onclick="resetCredits(\''+u.id+'\')">🔄 Réinitialiser crédits</button>' +
-      '</div>' +
-      '</td>' +
-    '</tr>';
+// ── HISTORY (localStorage) ─────────────────────
+function saveHistory(){localStorage.setItem('nx_history',JSON.stringify(conversations));}
+function loadHistoryFromStorage(){
+  try{var d=localStorage.getItem('nx_history');if(d)conversations=JSON.parse(d);}catch(e){conversations={};}
+}
+function loadHistoryList(){
+  loadHistoryFromStorage();
+  var list=document.getElementById('histList');
+  var keys=Object.keys(conversations).sort(function(a,b){return b-a;});
+  if(keys.length===0){list.innerHTML='<div style="padding:8px 4px;font-size:12px;color:var(--muted)">Aucune conversation</div>';return;}
+  list.innerHTML=keys.map(function(id){
+    var c=conversations[id];
+    var isActive=id===activeConvId;
+    return '<div class="hist-item'+(isActive?' active':'')+'" onclick="loadConv(\''+id+'\')" id="hist-'+id+'">'+
+      '<span style="flex:1;overflow:hidden;text-overflow:ellipsis">💬 '+esc(c.title||'Conversation')+'</span>'+
+      '<span class="hist-item-del" onclick="delConv(event,\''+id+'\')">✕</span>'+
+    '</div>';
   }).join('');
 }
-
-function toggleDetail(detailId, userId) {
-  var panel = document.getElementById(detailId);
-  if (panel) panel.classList.toggle('open');
+function loadConv(id){
+  loadHistoryFromStorage();
+  var c=conversations[id];
+  if(!c)return;
+  activeConvId=id;
+  document.getElementById('chatTitle').textContent=c.title||'Conversation';
+  var area=document.getElementById('msgArea');
+  area.innerHTML='';
+  (c.msgs||[]).forEach(function(m){
+    if(m.role==='user')addMsgHTML('user',m.content,m.imgSrc);
+    else if(m.role==='assistant')addMsgHTML('ai',m.content);
+  });
+  closeSidebar();
+  loadHistoryList();
+}
+function delConv(e,id){
+  e.stopPropagation();
+  delete conversations[id];
+  saveHistory();
+  if(activeConvId===id){newChat();}
+  else{loadHistoryList();}
 }
 
-async function setRole(userId, role, idx) {
-  if (!sb) return;
-  var res = await sb.from('profiles').update({role:role}).eq('id',userId);
-  if (res.error) { toast('Erreur: '+res.error.message); return; }
-  toast('Rôle mis à jour → '+ROLES[role].label,'success');
-  loadMasterData();
+// ── CHAT ───────────────────────────────────────
+var chatMsgs=[],chatLoading=false;
+
+function newChat(){
+  chatMsgs=[];activeConvId=null;
+  document.getElementById('chatTitle').textContent='NEXUS IA';
+  document.getElementById('msgArea').innerHTML='<div class="chat-empty-state" id="chatEmpty"><div class="empty-orb">NX</div><div class="empty-title">Nexus IA est prêt</div><div class="empty-sub">Choisissez un modèle et commencez à écrire</div><div class="suggs"><div class="sugg" onclick="useSugg(this)">✍️ Rédige un email professionnel</div><div class="sugg" onclick="useSugg(this)">💻 Aide-moi à coder</div><div class="sugg" onclick="useSugg(this)">💡 Explique le machine learning</div><div class="sugg" onclick="useSugg(this)">🎯 Crée une stratégie marketing</div></div></div>';
+  pendingImages=[];renderImgPreview();
+  loadHistoryList();
 }
 
-async function resetCredits(userId) {
-  if (!sb) return;
-  var res = await sb.from('profiles').update({credits_used:0,credits_reset_date:today()}).eq('id',userId);
-  if (res.error) { toast('Erreur: '+res.error.message); return; }
-  toast('Crédits réinitialisés ✓','success');
-  loadMasterData();
-}
-
-// ─── CONTACT ─────────────────────────────────────
-function sendContact(){
-  var n=document.getElementById('cName').value.trim();
-  var e=document.getElementById('cEmail').value.trim();
-  var m=document.getElementById('cMsg').value.trim();
-  if(!n||!e||!m){toast('Remplissez tous les champs.');return;}
-  toast('Message envoyé ! ✓','success');
-  document.getElementById('cName').value='';document.getElementById('cEmail').value='';document.getElementById('cMsg').value='';
-}
-
-// ─── CHAT ─────────────────────────────────────────
-var chatMsgs=[], chatLoading=false;
-function checkKey(k){ var s=document.getElementById('keySt'); if(!k){s.textContent='';return;} if(k.startsWith('sk-or-')){s.textContent='✓ Clé sauvegardée';s.className='key-st ok';}else{s.textContent='✗ Format invalide';s.className='key-st err';} }
-function saveKey(){ var k=document.getElementById('orKey').value.trim(); localStorage.setItem('nx_orkey',k); checkKey(k); }
-function loadKey(){ var k=localStorage.getItem('nx_orkey')||''; document.getElementById('orKey').value=k; checkKey(k); }
-function showKeySection(){ if(userProfile&&userProfile.role==='creator'){ document.getElementById('orKeySection').style.display='flex'; loadKey(); } }
-function updateBadge(){ var s=document.getElementById('modelSel'); document.getElementById('badgeModel').textContent=s.options[s.selectedIndex].text; }
-function newChat(){ chatMsgs=[]; document.getElementById('chatTitle').textContent='NEXUS IA'; document.getElementById('msgArea').innerHTML='<div class="chat-empty-state" id="chatEmpty"><div class="empty-orb">NX</div><div class="empty-title">Nexus IA est prêt</div><div class="empty-sub">Entrez votre clé OpenRouter et choisissez un modèle.</div><div class="suggs"><div class="sugg" onclick="useSugg(this)">✍️ Rédige un email professionnel</div><div class="sugg" onclick="useSugg(this)">💻 Aide-moi à coder</div><div class="sugg" onclick="useSugg(this)">💡 Explique le machine learning</div><div class="sugg" onclick="useSugg(this)">🎯 Crée une stratégie marketing</div></div></div>'; }
+function updateBadge(){var s=document.getElementById('modelSel');document.getElementById('badgeModel').textContent=s.options[s.selectedIndex].text;}
 function resizeInp(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px';}
 function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function useSugg(el){var t=el.textContent.replace(/^[^\w]*/,'').trim();var i=document.getElementById('chatInput');i.value=t;resizeInp(i);i.focus();}
-function addMsg(role,content){
-  var empty=document.getElementById('chatEmpty'); if(empty)empty.remove();
+function closeModal(){document.getElementById('creditsModal').classList.remove('open');}
+
+// IMAGE HANDLING
+function handleImgSelect(evt){
+  var files=evt.target.files;
+  if(!files||!files.length)return;
+  Array.from(files).forEach(function(file){
+    if(!file.type.startsWith('image/'))return;
+    var reader=new FileReader();
+    reader.onload=function(e){
+      pendingImages.push({base64:e.target.result.split(',')[1],type:file.type,thumb:e.target.result});
+      renderImgPreview();
+    };
+    reader.readAsDataURL(file);
+  });
+  evt.target.value='';
+}
+function renderImgPreview(){
+  var bar=document.getElementById('imgPreviewBar');
+  if(!pendingImages.length){bar.className='img-preview-bar';bar.innerHTML='';return;}
+  bar.className='img-preview-bar has-img';
+  bar.innerHTML=pendingImages.map(function(img,i){
+    return '<div style="position:relative;display:inline-block">'+
+      '<img src="'+img.thumb+'" class="img-thumb">'+
+      '<div class="img-remove" onclick="removeImg('+i+')">✕</div>'+
+    '</div>';
+  }).join('');
+}
+function removeImg(i){pendingImages.splice(i,1);renderImgPreview();}
+
+// ADD MESSAGE TO DOM
+function addMsgHTML(role,content,imgSrc){
+  var empty=document.getElementById('chatEmpty');if(empty)empty.remove();
   var area=document.getElementById('msgArea');
   var div=document.createElement('div');div.className='message '+role;
-  div.innerHTML='<div class="msg-av '+role+'">'+(role==='ai'?'NX':'YOU')+'</div><div class="msg-bub">'+fmt(content)+'</div>';
+  var imgHtml=imgSrc?'<img src="'+imgSrc+'" class="msg-img">':'';
+  div.innerHTML='<div class="msg-av '+role+'">'+(role==='ai'?'NX':'YOU')+'</div><div class="msg-bub">'+imgHtml+fmt(content)+'</div>';
   area.appendChild(div);area.scrollTop=area.scrollHeight;
 }
+function addTyping(){var empty=document.getElementById('chatEmpty');if(empty)empty.remove();var area=document.getElementById('msgArea');var d=document.createElement('div');d.className='message ai';d.id='typDiv';d.innerHTML='<div class="msg-av ai">NX</div><div class="msg-bub"><div class="typing"><span></span><span></span><span></span></div></div>';area.appendChild(d);area.scrollTop=area.scrollHeight;}
+function removeTyping(){var t=document.getElementById('typDiv');if(t)t.remove();}
+
 function fmt(t){
+  if(!t)return'<p></p>';
   t=t.replace(/```(\w*)\n?([\s\S]*?)```/g,function(_,l,c){return'<pre><code>'+esc(c.trim())+'</code></pre>';});
   t=t.replace(/`([^`]+)`/g,function(_,c){return'<code>'+esc(c)+'</code>';});
   t=t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  t=t.replace(/\*(.+?)\*/g,'<em>$1</em>');
   t=t.split('\n\n').map(function(p){return p?'<p>'+p.replace(/\n/g,'<br>')+'</p>':'';}).join('');
-  return t||'<p></p>';
+  return t;
 }
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function addTyping(){ var empty=document.getElementById('chatEmpty');if(empty)empty.remove(); var area=document.getElementById('msgArea'); var d=document.createElement('div');d.className='message ai';d.id='typDiv'; d.innerHTML='<div class="msg-av ai">NX</div><div class="msg-bub"><div class="typing"><span></span><span></span><span></span></div></div>'; area.appendChild(d);area.scrollTop=area.scrollHeight; }
-function removeTyping(){ var t=document.getElementById('typDiv');if(t)t.remove(); }
-function closeModal(){ document.getElementById('creditsModal').classList.remove('open'); }
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 async function sendMsg(){
   if(chatLoading)return;
-  var inp=document.getElementById('chatInput');
-  var key=document.getElementById('orKey').value.trim()||localStorage.getItem('nx_orkey')||'';
   var model=document.getElementById('modelSel').value;
-  var text=inp.value.trim();
-  if(!text)return;
-  if(!key){toast('⚠️ Entrez votre clé OpenRouter dans la barre latérale');return;}
+  var text=document.getElementById('chatInput').value.trim();
+  var imgs=[...pendingImages];
+  if(!text&&!imgs.length)return;
 
   // Vérifier crédits
-  if (userProfile) {
-    var left = getCreditsLeft();
-    if (left <= 0) {
-      var roleInfo = ROLES[userProfile.role]||ROLES.normal;
-      document.getElementById('creditsModalText').textContent = 'Vous avez utilisé vos '+getMaxCredits()+' crédits journaliers (plan '+roleInfo.label+'). Revenez demain ou passez à un plan supérieur !';
+  if(userProfile){
+    var left=getLeft();
+    if(left<=0){
+      var ri=ROLES[userProfile.role]||ROLES.normal;
+      document.getElementById('creditsModalText').textContent='Vous avez utilisé vos '+(ri.credits<999999?ri.credits:'')+'crédits journaliers ('+ri.label+'). Revenez demain ou passez Premium !';
       document.getElementById('creditsModal').classList.add('open');
       return;
     }
   }
 
-  inp.value='';inp.style.height='auto';
-  chatMsgs.push({role:'user',content:text});
-  addMsg('user',text);
-  if(chatMsgs.length===1) document.getElementById('chatTitle').textContent=text.slice(0,35)+(text.length>35?'...':'');
-  chatLoading=true;document.getElementById('sendBtn').disabled=true;addTyping();
+  document.getElementById('chatInput').value='';
+  document.getElementById('chatInput').style.height='auto';
+  pendingImages=[];renderImgPreview();
 
-  // Consommer 1 crédit
-  if (userProfile) await useCredit();
+  // Afficher message user
+  var imgSrc=imgs.length?imgs[0].thumb:null;
+  addMsgHTML('user',text||'📷 Image',imgSrc);
+
+  // Build API message content
+  var content;
+  if(imgs.length){
+    content=[{type:'text',text:text||'Analyse cette image.'}];
+    imgs.forEach(function(img){content.push({type:'image_url',image_url:{url:'data:'+img.type+';base64,'+img.base64}});});
+  }else{
+    content=text;
+  }
+
+  chatMsgs.push({role:'user',content:content});
+  if(chatMsgs.length===1&&!activeConvId){
+    activeConvId=Date.now().toString();
+    var title=(text||'Image').slice(0,32)+(text&&text.length>32?'...':'');
+    document.getElementById('chatTitle').textContent=title;
+    conversations[activeConvId]={title:title,msgs:[]};
+  }
+
+  // Sauvegarder dans historique
+  if(activeConvId){
+    conversations[activeConvId].msgs.push({role:'user',content:text||'Image',imgSrc:imgSrc});
+    saveHistory();loadHistoryList();
+  }
+
+  chatLoading=true;document.getElementById('sendBtn').disabled=true;addTyping();
+  if(userProfile)await useCredit();
 
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
-    body:JSON.stringify({model:model,max_tokens:1024,messages:[{role:'system',content:"Tu es Nexus, un assistant IA. Réponds en français sauf si l'utilisateur écrit dans une autre langue."}].concat(chatMsgs)})
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
+    body:JSON.stringify({model:model,max_tokens:1500,messages:[{role:'system',content:"Tu es Nexus, un assistant IA avancé. Réponds en français sauf si l'utilisateur écrit dans une autre langue. Sois précis, utile et concis."}].concat(chatMsgs)})
   })
   .then(function(r){if(!r.ok)return r.json().then(function(d){throw{s:r.status,m:d&&d.error&&d.error.message};});return r.json();})
   .then(function(d){
     removeTyping();
     var reply=(d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'(Réponse vide)';
-    chatMsgs.push({role:'assistant',content:reply});addMsg('ai',reply);
+    chatMsgs.push({role:'assistant',content:reply});
+    addMsgHTML('ai',reply);
+    if(activeConvId){conversations[activeConvId].msgs.push({role:'assistant',content:reply});saveHistory();}
   })
   .catch(function(e){
     removeTyping();chatMsgs.pop();
-    if(e.s===401)toast('❌ Clé OpenRouter invalide');
+    if(e.s===401)toast('❌ Clé API invalide');
     else if(e.s===429)toast('⏱️ Limite atteinte. Patientez.');
     else toast('❌ '+(e.m||e.message||'Erreur réseau'));
   })
   .finally(function(){chatLoading=false;document.getElementById('sendBtn').disabled=false;document.getElementById('chatInput').focus();});
 }
 
-// ─── TOAST ────────────────────────────────────────
+// ── MASTER ─────────────────────────────────────
+async function loadMasterData(){
+  if(!sb||!userProfile||userProfile.role!=='creator')return;
+  var tbody=document.getElementById('usersTableBody');
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Chargement...</td></tr>';
+  var r=await sb.from('profiles').select('*').order('created_at',{ascending:false});
+  if(r.error){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#f87171;padding:24px">'+r.error.message+'</td></tr>';return;}
+  var users=r.data||[];
+  document.getElementById('statTotal').textContent=users.length;
+  document.getElementById('statPremium').textContent=users.filter(function(u){return u.role==='premium';}).length;
+  document.getElementById('statTesters').textContent=users.filter(function(u){return u.role==='tester';}).length;
+  var now=new Date();
+  document.getElementById('statOnline').textContent=users.filter(function(u){return u.last_seen&&(now-new Date(u.last_seen))<86400000;}).length;
+  if(!users.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Aucun utilisateur</td></tr>';return;}
+  tbody.innerHTML=users.map(function(u,i){
+    var ri=ROLES[u.role]||ROLES.normal;
+    var isOn=u.last_seen&&(now-new Date(u.last_seen))<86400000;
+    var max=ri.credits;
+    var cred=(u.credits_used||0)+'/'+(max>=999999?'∞':max);
+    var joined=u.created_at?new Date(u.created_at).toLocaleDateString('fr-FR'):'—';
+    var pseudo=u.pseudo||'—';
+    return '<tr>'+
+      '<td style="color:var(--white);font-size:12px">'+esc(u.email||'—')+'</td>'+
+      '<td style="color:var(--muted)">'+esc(pseudo)+'</td>'+
+      '<td><span class="role-badge '+ri.cls+'">'+ri.label+'</span></td>'+
+      '<td style="color:var(--muted)">'+cred+'</td>'+
+      '<td style="color:var(--muted)">'+joined+'</td>'+
+      '<td><span class="online-dot '+(isOn?'on':'off')+'"></span><span style="color:'+(isOn?'#4ade80':'var(--muted)')+'">'+(isOn?'En ligne':'Hors ligne')+'</span></td>'+
+      '<td><div style="display:flex;gap:4px;flex-wrap:wrap">'+
+        '<button class="btn-role btn-role-normal" onclick="setRole(\''+u.id+'\',\'normal\')">Normal</button>'+
+        '<button class="btn-role btn-role-tester" onclick="setRole(\''+u.id+'\',\'tester\')">Testeur</button>'+
+        '<button class="btn-role btn-role-premium" onclick="setRole(\''+u.id+'\',\'premium\')">Premium</button>'+
+        '<button class="btn-role" style="background:rgba(139,92,246,.2);color:var(--violet-bright)" onclick="toggleDetail(\'d'+i+'\')">🔍</button>'+
+      '</div>'+
+      '<div class="user-detail-panel" id="d'+i+'">'+
+        '<div class="detail-grid">'+
+          '<div class="detail-item"><div class="detail-label">ID</div><div class="detail-value" style="font-size:10px;word-break:break-all">'+u.id+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">Crédits utilisés</div><div class="detail-value">'+cred+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">Dernière activité</div><div class="detail-value" style="font-size:12px">'+(u.last_seen?new Date(u.last_seen).toLocaleString('fr-FR'):'—')+'</div></div>'+
+        '</div>'+
+        '<button class="btn-ghost" style="font-size:11px" onclick="resetCredits(\''+u.id+'\')">🔄 Reset crédits</button>'+
+      '</div>'+
+      '</td></tr>';
+  }).join('');
+}
+function toggleDetail(id){var p=document.getElementById(id);if(p)p.classList.toggle('open');}
+async function setRole(uid,role){if(!sb)return;var r=await sb.from('profiles').update({role:role}).eq('id',uid);if(r.error){toast('Erreur: '+r.error.message);return;}toast('Rôle → '+ROLES[role].label,'success');loadMasterData();}
+async function resetCredits(uid){if(!sb)return;var r=await sb.from('profiles').update({credits_used:0,credits_reset_date:today()}).eq('id',uid);if(r.error){toast('Erreur: '+r.error.message);return;}toast('Crédits réinitialisés ✓','success');loadMasterData();}
+
+// ── CONTACT ────────────────────────────────────
+function sendContact(){var n=document.getElementById('cName').value.trim();var e=document.getElementById('cEmail').value.trim();var m=document.getElementById('cMsg').value.trim();if(!n||!e||!m){toast('Remplissez tous les champs.');return;}toast('Message envoyé ✓','success');document.getElementById('cName').value='';document.getElementById('cEmail').value='';document.getElementById('cMsg').value='';}
+
+// ── TOAST ──────────────────────────────────────
 var toastTmr;
-function toast(msg,type){ var t=document.getElementById('toast');t.textContent=msg; t.className='toast show'+(type?' '+type:''); clearTimeout(toastTmr);toastTmr=setTimeout(function(){t.classList.remove('show');},4500); }
+function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');clearTimeout(toastTmr);toastTmr=setTimeout(function(){t.classList.remove('show');},4500);}
 
-// ─── SCROLL REVEAL ────────────────────────────────
-function initReveal(){ var els=document.querySelectorAll('.reveal'); var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1}); els.forEach(function(el){obs.observe(el);}); }
+// ── SCROLL REVEAL ──────────────────────────────
+function initReveal(){var els=document.querySelectorAll('.reveal');var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});els.forEach(function(el){obs.observe(el);});}
 
-// ─── SPACE CANVAS ─────────────────────────────────
+// ── SPACE CANVAS ───────────────────────────────
 var canvas=document.getElementById('spaceCanvas'),ctx=canvas.getContext('2d'),stars=[],W,H;
-function resizeCvs(){ W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight; stars=[];for(var i=0;i<200;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,o:Math.random(),tw:Math.random()*Math.PI*2}); }
-function drawSpace(){ ctx.clearRect(0,0,W,H); var bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#03010a');bg.addColorStop(.4,'#080420');bg.addColorStop(.7,'#0a0530');bg.addColorStop(1,'#03010a'); ctx.fillStyle=bg;ctx.fillRect(0,0,W,H); [{x:W*.15,y:H*.3,r:300,c:'rgba(75,15,212,0.1)'},{x:W*.85,y:H*.7,r:260,c:'rgba(107,44,245,0.08)'},{x:W*.5,y:H*.5,r:380,c:'rgba(30,5,80,0.12)'}].forEach(function(n){ var g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,n.c);g.addColorStop(1,'transparent'); ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,.3,0,Math.PI*2);ctx.fill(); }); stars.forEach(function(s){s.tw+=.012;var o=s.o*(.5+.5*Math.sin(s.tw));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(200,210,255,'+o+')';ctx.fill();}); requestAnimationFrame(drawSpace); }
-window.addEventListener('resize',resizeCvs); resizeCvs(); drawSpace();
+function resizeCvs(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;stars=[];for(var i=0;i<200;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,o:Math.random(),tw:Math.random()*Math.PI*2});}
+function drawSpace(){ctx.clearRect(0,0,W,H);var bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#03010a');bg.addColorStop(.4,'#080420');bg.addColorStop(.7,'#0a0530');bg.addColorStop(1,'#03010a');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[{x:W*.15,y:H*.3,r:300,c:'rgba(75,15,212,0.1)'},{x:W*.85,y:H*.7,r:260,c:'rgba(107,44,245,0.08)'},{x:W*.5,y:H*.5,r:380,c:'rgba(30,5,80,0.12)'}].forEach(function(n){var g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,n.c);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(n.x,n.y,n.r,n.r*.6,.3,0,Math.PI*2);ctx.fill();});stars.forEach(function(s){s.tw+=.012;var o=s.o*(.5+.5*Math.sin(s.tw));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(200,210,255,'+o+')';ctx.fill();});requestAnimationFrame(drawSpace);}
+window.addEventListener('resize',resizeCvs);resizeCvs();drawSpace();
 
-// ─── DÉMARRAGE ────────────────────────────────────
+// ── START ──────────────────────────────────────
+loadTheme();
 initSupabase();
 showPage('login');
 </script>
