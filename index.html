@@ -530,6 +530,14 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
         <span class="chat-title" id="chatTitle">NEXUS IA</span>
         <div class="model-badge"><div class="badge-dot"></div><span id="badgeModel">GPT-4o Mini</span></div>
       </div>
+      <div id="apiKeyBanner" style="display:none;padding:12px 24px;background:rgba(245,158,11,.1);border-bottom:1px solid rgba(245,158,11,.3)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-size:13px;color:var(--gold);font-weight:600">🔑 Clé API :</span>
+          <input type="password" id="inlinApiKey" placeholder="sk-or-v1-..." style="flex:1;min-width:200px;background:rgba(255,255,255,.05);border:1px solid rgba(245,158,11,.4);border-radius:8px;padding:7px 12px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:13px;outline:none"/>
+          <button onclick="saveInlineKey()" style="background:linear-gradient(135deg,var(--gold),#d97706);border:none;border-radius:8px;padding:8px 16px;color:#000;font-weight:700;font-size:13px;cursor:pointer">Sauvegarder</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">Ta clé OpenRouter — saisie une fois, sauvegardée pour toujours sur cet appareil.</div>
+      </div>
       <div class="msg-area" id="msgArea">
         <div class="chat-empty-state" id="chatEmpty">
           <div class="empty-orb">NX</div>
@@ -799,7 +807,7 @@ function showPage(name){
   if(name==='home')setTimeout(initReveal,150);
   if(name==='settings'){loadLang();}
   if(name==='master'){if(!userProfile||userProfile.role!=='creator'){showPage('home');return;}loadMasterData();setTimeout(loadApiKeyDisplay,100);}
-  if(name==='chat'){updateCreditsUI();loadHistoryList();}
+  if(name==='chat'){updateCreditsUI();loadHistoryList();checkAndShowKeyBanner();}
 }
 function goHome(){if(sbOK&&!currentUser){showPage('login');return;}showPage('home');}
 function goChat(){if(sbOK&&!currentUser){showPage('login');return;}showPage('chat');}
@@ -1160,6 +1168,34 @@ async function sendMsg(){
     else toast('❌ '+(e.m||e.message||'Erreur réseau'));
   })
   .finally(function(){chatLoading=false;document.getElementById('sendBtn').disabled=false;document.getElementById('chatInput').focus();});
+}
+
+// ── INLINE API KEY BANNER ──────────────────────────
+function checkAndShowKeyBanner(){
+  var key = localStorage.getItem('nx_api_key')||'';
+  OR_KEY = key;
+  var banner = document.getElementById('apiKeyBanner');
+  if(!banner) return;
+  // Montrer la bannière seulement si pas de clé
+  if(!key){
+    banner.style.display='block';
+    document.getElementById('inlinApiKey').value='';
+  } else {
+    banner.style.display='none';
+  }
+}
+
+function saveInlineKey(){
+  var inp = document.getElementById('inlinApiKey');
+  var key = inp.value.trim();
+  if(!key || !key.startsWith('sk-or-')){
+    toast('❌ Clé invalide — doit commencer par sk-or-');
+    return;
+  }
+  localStorage.setItem('nx_api_key', key);
+  OR_KEY = key;
+  document.getElementById('apiKeyBanner').style.display='none';
+  toast('Clé API sauvegardée ✓','success');
 }
 
 // ── API KEY MANAGER (Master only) ─────────────────
