@@ -938,20 +938,17 @@ function applyLang(lang){
   // Boutons navbar
   var logout = document.querySelector('#navUserArea .btn-outline:last-child');
   if(logout) logout.textContent = L.logout;
-  // Sidebar
-  var newChatBtn = document.querySelector('.new-chat-btn');
-  if(newChatBtn) newChatBtn.childNodes[newChatBtn.childNodes.length-1].textContent = ' '+L.newChat;
-  var sideLbl = document.querySelector('.side-lbl');
-  if(sideLbl) sideLbl.textContent = L.histTitle;
-  // Credits label
-  var credLbl = document.querySelector('.credits-bar-label');
-  if(credLbl) credLbl.textContent = L.credits;
-  // Hint
-  var hint = document.querySelector('.inp-hint span:first-child');
-  if(hint) hint.textContent = L.sendHint;
-  // Settings title
-  var stitle = document.querySelector('.settings-title');
-  if(stitle) stitle.textContent = (lang==='en'?'⚙️ Settings':'⚙️ Paramètres');
+  // Sidebar - safe update
+  try {
+    var sideLbl = document.querySelector('.side-lbl');
+    if(sideLbl) sideLbl.textContent = L.histTitle;
+    var credLbl = document.querySelector('.credits-bar-label');
+    if(credLbl) credLbl.textContent = L.credits;
+    var hint = document.querySelector('.inp-hint span:first-child');
+    if(hint) hint.textContent = L.sendHint;
+    var stitle = document.querySelector('.settings-title');
+    if(stitle) stitle.textContent = (lang==='en'?'⚙️ Settings':'⚙️ Paramètres');
+  } catch(e) { console.log('lang apply minor error:', e); }
 }
 
 function loadLang(){
@@ -1268,8 +1265,8 @@ function drawSpace(){ctx.clearRect(0,0,W,H);var bg=ctx.createLinearGradient(0,0,
 window.addEventListener('resize',resizeCvs);resizeCvs();drawSpace();
 
 // ── START ──────────────────────────────────────
-loadTheme();
-loadLang();
+try { loadTheme(); } catch(e) { console.error('loadTheme error:', e); }
+try { loadLang(); } catch(e) { console.error('loadLang error:', e); }
 OR_KEY = localStorage.getItem('nx_api_key') || '';
 initSupabase();
 showPage('login');
