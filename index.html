@@ -1138,6 +1138,8 @@ async function sendMsg(){
   chatLoading=true;document.getElementById('sendBtn').disabled=true;addTyping();
   if(userProfile)await useCredit();
 
+  OR_KEY = localStorage.getItem('nx_api_key') || OR_KEY;
+  if(!OR_KEY){toast('❌ Clé API manquante — configure-la dans le Master Dashboard');return;}
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
