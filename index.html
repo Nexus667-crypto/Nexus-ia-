@@ -671,7 +671,7 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
 // ╚══════════════════════════════════════════════╝
 var SUPABASE_URL = "https://ddebrzazzbsihtrrzuel.supabase.co";
 var SUPABASE_KEY = "sb_publishable_B5IyGY0fiLx6AGTvgP1tVg_MrDkpCyE";
-var OR_KEY = "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";
+var OR_KEY = "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".trim();
 var CREATOR_EMAIL = "louistou07@gmail.com";
 
 // ── RÔLES ──────────────────────────────────────
@@ -778,6 +778,7 @@ function showPage(name){
     else{na.style.display='flex';nu.style.display='none';}
   }else{nb.style.display='none';}
   if(name==='home')setTimeout(initReveal,150);
+  if(name==='settings'){loadLang();}
   if(name==='master'){if(!userProfile||userProfile.role!=='creator'){showPage('home');return;}loadMasterData();}
   if(name==='chat'){updateCreditsUI();loadHistoryList();}
 }
@@ -854,21 +855,39 @@ async function changePass(){
 function setTheme(btn,theme){
   document.querySelectorAll('.theme-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  document.body.className=theme?'theme-'+theme:'';
-  localStorage.setItem('nx_theme',theme);
+  // Supprimer les anciens themes sans toucher aux autres classes
+  document.body.classList.remove('theme-blue','theme-green','theme-pink');
+  if(theme) document.body.classList.add('theme-'+theme);
+  localStorage.setItem('nx_theme',theme||'');
+  toast('Thème appliqué ✓','success');
 }
 
 function loadTheme(){
   var t=localStorage.getItem('nx_theme')||'';
-  document.body.className=t?'theme-'+t:'';
+  document.body.classList.remove('theme-blue','theme-green','theme-pink');
+  if(t) document.body.classList.add('theme-'+t);
   document.querySelectorAll('.theme-btn').forEach(function(b){
-    b.classList.toggle('active',b.dataset.theme===t);
+    b.classList.toggle('active',(b.dataset.theme||'')===(t||''));
   });
 }
 
 function setLang(lang){
   localStorage.setItem('nx_lang',lang);
+  // Mettre à jour le placeholder du chat
+  var inp = document.getElementById('chatInput');
+  if(inp) inp.placeholder = lang==='en'?'Write your message...':'Écrivez votre message...';
+  // Mettre à jour le select
+  var sel = document.getElementById('langSelect');
+  if(sel) sel.value = lang;
   toast(lang==='en'?'Language set to English ✓':'Langue définie en Français ✓','success');
+}
+
+function loadLang(){
+  var lang = localStorage.getItem('nx_lang')||'fr';
+  var sel = document.getElementById('langSelect');
+  if(sel) sel.value = lang;
+  var inp = document.getElementById('chatInput');
+  if(inp) inp.placeholder = lang==='en'?'Write your message...':'Écrivez votre message...';
 }
 
 async function deleteAccount(){
@@ -1056,7 +1075,7 @@ async function sendMsg(){
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
-    body:JSON.stringify({model:model,max_tokens:1500,messages:[{role:'system',content:"Tu es Nexus, un assistant IA avancé. Réponds en français sauf si l'utilisateur écrit dans une autre langue. Sois précis, utile et concis."}].concat(chatMsgs)})
+    body:JSON.stringify({model:model,max_tokens:1500,messages:[{role:'system',content:(localStorage.getItem('nx_lang')==='en'?"You are Nexus, an advanced AI assistant. Be precise, helpful and concise.":"Tu es Nexus, un assistant IA avancé. Réponds en français sauf si l'utilisateur écrit dans une autre langue. Sois précis, utile et concis.")}].concat(chatMsgs)})
   })
   .then(function(r){if(!r.ok)return r.json().then(function(d){throw{s:r.status,m:d&&d.error&&d.error.message};});return r.json();})
   .then(function(d){
@@ -1142,6 +1161,7 @@ window.addEventListener('resize',resizeCvs);resizeCvs();drawSpace();
 
 // ── START ──────────────────────────────────────
 loadTheme();
+loadLang();
 initSupabase();
 showPage('login');
 </script>
