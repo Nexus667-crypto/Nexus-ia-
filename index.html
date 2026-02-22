@@ -517,9 +517,9 @@ body{font-family:'Exo 2',sans-serif;background:#03010a;color:var(--white);overfl
           <option value="google/gemini-flash-1.5">Gemini Flash 1.5</option>
         </select>
       </div>
-      <div class="side-sec">
+      <div class="side-sec" id="orKeySection" style="display:none">
         <div class="side-sec-lbl">Clé OpenRouter</div>
-        <input type="password" class="key-inp" id="orKey" placeholder="sk-or-v1-..." oninput="checkKey()"/>
+        <input type="password" class="key-inp" id="orKey" placeholder="sk-or-v1-..." oninput="saveKey()"/>
         <div class="key-st" id="keySt"></div>
       </div>
       <div class="side-sec" style="border:none;padding:8px 0 0;display:flex;flex-direction:column;gap:6px">
@@ -800,7 +800,7 @@ function showPage(name) {
     if (!userProfile || userProfile.role !== 'creator') { showPage('home'); return; }
     loadMasterData();
   }
-  if (name==='chat') updateCreditsUI();
+  if (name==='chat') { updateCreditsUI(); showKeySection(); }
 }
 
 function goHome() {
@@ -1001,7 +1001,10 @@ function sendContact(){
 
 // ─── CHAT ─────────────────────────────────────────
 var chatMsgs=[], chatLoading=false;
-function checkKey(){ var k=document.getElementById('orKey').value.trim(); var s=document.getElementById('keySt'); if(!k){s.textContent='';return;} if(k.startsWith('sk-or-')){s.textContent='✓ Clé valide';s.className='key-st ok';}else{s.textContent='✗ Format invalide';s.className='key-st err';} }
+function checkKey(k){ var s=document.getElementById('keySt'); if(!k){s.textContent='';return;} if(k.startsWith('sk-or-')){s.textContent='✓ Clé sauvegardée';s.className='key-st ok';}else{s.textContent='✗ Format invalide';s.className='key-st err';} }
+function saveKey(){ var k=document.getElementById('orKey').value.trim(); localStorage.setItem('nx_orkey',k); checkKey(k); }
+function loadKey(){ var k=localStorage.getItem('nx_orkey')||''; document.getElementById('orKey').value=k; checkKey(k); }
+function showKeySection(){ if(userProfile&&userProfile.role==='creator'){ document.getElementById('orKeySection').style.display='flex'; loadKey(); } }
 function updateBadge(){ var s=document.getElementById('modelSel'); document.getElementById('badgeModel').textContent=s.options[s.selectedIndex].text; }
 function newChat(){ chatMsgs=[]; document.getElementById('chatTitle').textContent='NEXUS IA'; document.getElementById('msgArea').innerHTML='<div class="chat-empty-state" id="chatEmpty"><div class="empty-orb">NX</div><div class="empty-title">Nexus IA est prêt</div><div class="empty-sub">Entrez votre clé OpenRouter et choisissez un modèle.</div><div class="suggs"><div class="sugg" onclick="useSugg(this)">✍️ Rédige un email professionnel</div><div class="sugg" onclick="useSugg(this)">💻 Aide-moi à coder</div><div class="sugg" onclick="useSugg(this)">💡 Explique le machine learning</div><div class="sugg" onclick="useSugg(this)">🎯 Crée une stratégie marketing</div></div></div>'; }
 function resizeInp(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px';}
@@ -1029,7 +1032,7 @@ function closeModal(){ document.getElementById('creditsModal').classList.remove(
 async function sendMsg(){
   if(chatLoading)return;
   var inp=document.getElementById('chatInput');
-  var key=document.getElementById('orKey').value.trim();
+  var key=document.getElementById('orKey').value.trim()||localStorage.getItem('nx_orkey')||'';
   var model=document.getElementById('modelSel').value;
   var text=inp.value.trim();
   if(!text)return;
