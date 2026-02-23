@@ -2,6 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus — AI Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -439,12 +443,8 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
       <div class="section-label">Contact</div>
       <h2 class="section-title">Parlons de votre <span style="background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">projet</span></h2>
       <p class="section-desc">Notre équipe vous répond rapidement.</p>
-      <div class="contact-grid reveal">
-        <div class="contact-info">
-          <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-detail"><h5>Téléphone</h5><p>012-345-6789</p></div></div>
-          <div class="contact-item"><div class="contact-icon">✉️</div><div class="contact-detail"><h5>Email</h5><p>info@nexus-ai.com</p></div></div>
-          <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-detail"><h5>Adresse</h5><p>123 Avenue de l'Innovation, Paris</p></div></div>
-        </div>
+      <div class="reveal" style="max-width:600px;margin:0 auto">
+
         <div class="contact-form">
           <div class="contact-form-title">Envoyer un message</div>
           <div class="form-group"><label class="form-label">Nom</label><input type="text" class="form-input" id="cName" placeholder="Votre nom"/></div>
@@ -532,11 +532,11 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
       </div>
       <div id="apiKeyBanner" style="display:none;padding:12px 24px;background:rgba(245,158,11,.1);border-bottom:1px solid rgba(245,158,11,.3)">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span style="font-size:13px;color:var(--gold);font-weight:600">🔑 Clé API :</span>
+          <span style="font-size:13px;color:var(--gold);font-weight:600">🔑 Clé API (Créateur) :</span>
           <input type="password" id="inlinApiKey" placeholder="sk-or-v1-..." style="flex:1;min-width:200px;background:rgba(255,255,255,.05);border:1px solid rgba(245,158,11,.4);border-radius:8px;padding:7px 12px;color:var(--white);font-family:'Exo 2',sans-serif;font-size:13px;outline:none"/>
           <button onclick="saveInlineKey()" style="background:linear-gradient(135deg,var(--gold),#d97706);border:none;border-radius:8px;padding:8px 16px;color:#000;font-weight:700;font-size:13px;cursor:pointer">Sauvegarder</button>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px">Ta clé OpenRouter — saisie une fois, sauvegardée pour toujours sur cet appareil.</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">Visible uniquement par le Créateur.</div>
       </div>
       <div class="msg-area" id="msgArea">
         <div class="chat-empty-state" id="chatEmpty">
@@ -693,10 +693,52 @@ body.theme-pink{--violet:#db2777;--violet-mid:#be185d;--violet-bright:#f472b6;--
 
 <script>
 // ╔══════════════════════════════════════════════╗
+// ║  🔒 SÉCURITÉ                                  ║
+// ╚══════════════════════════════════════════════╝
+
+// Sanitisation XSS - nettoyer tout texte avant affichage
+function sanitize(str){
+  if(!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#x27;')
+    .replace(/\//g,'&#x2F;');
+}
+
+// Rate limiting - max N appels par minute
+var _rateLimits = {};
+function rateLimit(key, maxPerMin){
+  var now = Date.now();
+  if(!_rateLimits[key]) _rateLimits[key] = [];
+  _rateLimits[key] = _rateLimits[key].filter(function(t){ return now-t < 60000; });
+  if(_rateLimits[key].length >= maxPerMin) return false;
+  _rateLimits[key].push(now);
+  return true;
+}
+
+// Validation email
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Validation mot de passe
+function isValidPassword(pass){
+  return pass && pass.length >= 6 && pass.length <= 128;
+}
+
+// Bloquer les tentatives d injection dans les inputs
+function sanitizeInput(val){
+  return String(val||'').slice(0,500).replace(/[<>"']/g,'');
+}
+
+// ╔══════════════════════════════════════════════╗
 // ║  🔧 CONFIGURATION — À modifier              ║
 // ╚══════════════════════════════════════════════╝
-var SUPABASE_URL = "https://ddebrzazzbsihtrrzuel.supabase.co";
-var SUPABASE_KEY = "sb_publishable_B5IyGY0fiLx6AGTvgP1tVg_MrDkpCyE";
+var SUPABASE_URL = "VOTRE_URL_ICI";
+var SUPABASE_KEY = "VOTRE_ANON_KEY_ICI";
 var OR_KEY = localStorage.getItem("nx_api_key") || "";
 var CREATOR_EMAIL = "louistou07@gmail.com";
 
@@ -826,7 +868,9 @@ function doLogin(){
   var email=document.getElementById('loginEmail').value.trim();
   var pass=document.getElementById('loginPass').value;
   if(!email||!pass){showErr('loginErr','Remplissez tous les champs.');return;}
-  if(!sbOK){showErr('loginErr','⚠️ Supabase non configuré. Remplis SUPABASE_URL et SUPABASE_KEY dans le script.');return;}
+  if(!isValidEmail(email)){showErr('loginErr','Adresse email invalide.');return;}
+  if(!rateLimit('login',5)){showErr('loginErr','Trop de tentatives. Attendez 1 minute.');return;}
+  if(!sbOK){showErr('loginErr','⚠️ Supabase non configuré.');return;}
   setBtn('loginBtn',true,'Connexion...');
   sb.auth.signInWithPassword({email:email,password:pass}).then(function(r){
     if(r.error){showErr('loginErr',sbErr(r.error.message));return;}
@@ -842,8 +886,10 @@ function doRegister(){
   var pass=document.getElementById('regPass').value;
   var conf=document.getElementById('regConfirm').value;
   if(!email||!pass||!conf){showErr('registerErr','Remplissez tous les champs.');return;}
+  if(!isValidEmail(email)){showErr('registerErr','Adresse email invalide.');return;}
+  if(!isValidPassword(pass)){showErr('registerErr','Mot de passe trop court (6-128 caractères).');return;}
   if(pass!==conf){showErr('registerErr','Mots de passe différents.');return;}
-  if(pass.length<6){showErr('registerErr','Mot de passe trop court.');return;}
+  if(!rateLimit('register',3)){showErr('registerErr','Trop de tentatives. Attendez 1 minute.');return;}
   if(!sbOK){showErr('registerErr','⚠️ Supabase non configuré.');return;}
   setBtn('registerBtn',true,'Création...');
   sb.auth.signUp({email:email,password:pass}).then(function(r){
@@ -1095,6 +1141,7 @@ function fmt(t){
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 async function sendMsg(){
+  if(!rateLimit('chat', 30)){toast('⏱️ Trop de messages. Attendez un moment.');return;}
   if(chatLoading)return;
   var model=document.getElementById('modelSel').value;
   var text=document.getElementById('chatInput').value.trim();
@@ -1147,7 +1194,7 @@ async function sendMsg(){
   if(userProfile)await useCredit();
 
   OR_KEY = localStorage.getItem('nx_api_key') || OR_KEY;
-  if(!OR_KEY){document.getElementById('apiKeyBanner').style.display='block';toast('❌ Entre ta clé API dans le champ en haut');return;}
+  if(!OR_KEY){var isCr=userProfile&&userProfile.role==='creator';if(isCr)document.getElementById('apiKeyBanner').style.display='block';toast(isCr?'❌ Entre ta clé API dans le champ en haut':'❌ Service temporairement indisponible');return;}
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY,'HTTP-Referer':window.location.href,'X-Title':'Nexus AI'},
@@ -1176,7 +1223,9 @@ function checkAndShowKeyBanner(){
   OR_KEY = key;
   var banner = document.getElementById('apiKeyBanner');
   if(!banner) return;
-  if(!key){
+  // Seulement visible pour le créateur
+  var isCreator = userProfile && userProfile.role === 'creator';
+  if(isCreator && !key){
     banner.style.display='block';
   } else {
     banner.style.display='none';
@@ -1239,9 +1288,14 @@ function saveApiKey(){
 async function loadMasterData(){
   if(!sb||!userProfile||userProfile.role!=='creator')return;
   var tbody=document.getElementById('usersTableBody');
-  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Chargement...</td></tr>';
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">⏳ Chargement...</td></tr>';
+  // S assurer que le profil créateur est bien enregistré
+  await upsertProfile();
   var r=await sb.from('profiles').select('*').order('created_at',{ascending:false});
-  if(r.error){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#f87171;padding:24px">'+r.error.message+'</td></tr>';return;}
+  if(r.error){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#f87171;padding:24px">⚠️ '+r.error.message+'<br><small style="color:var(--muted)">Va dans Supabase → SQL Editor et exécute le SQL de configuration des policies</small></td></tr>';
+    return;
+  }
   var users=r.data||[];
   document.getElementById('statTotal').textContent=users.length;
   document.getElementById('statPremium').textContent=users.filter(function(u){return u.role==='premium';}).length;
